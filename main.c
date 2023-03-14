@@ -199,6 +199,24 @@ int main()
 
     // change data
     change_data(customers);
+    
+    struct Electric_mobility_means my_vehicle;
+    printf("Enter the brand of your vehicle: ");
+    scanf("%s", my_vehicle.brand);
+    printf("Enter the model of your vehicle: ");
+    scanf("%s", my_vehicle.model);
+    printf("Enter the year of your vehicle: ");
+    scanf("%d", &my_vehicle.year);
+    printf("Enter the battery capacity of your vehicle: ");
+    scanf("%lf", &my_vehicle.battery_capacity);
+    printf("Enter the top speed of your vehicle: ");
+    scanf("%d", &my_vehicle.top_speed);
+    printf("Enter the range of your vehicle: ");
+    scanf("%lf", &my_vehicle.range);
+    printf("Your vehicle is a %d %s %s with a %.2f kWh battery, a top speed of %d km/h and a range of %.2f km.\n",
+           my_vehicle.year, my_vehicle.brand, my_vehicle.model, my_vehicle.battery_capacity, my_vehicle.top_speed,
+           my_vehicle.range);
+
 
     return 0;
 }
