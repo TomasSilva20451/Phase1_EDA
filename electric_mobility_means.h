@@ -1,18 +1,14 @@
 // Electric_mobility_means.h
-#ifndef ELECTRIC_MOBILITY_MEANS_H
-#define ELECTRIC_MOBILITY_MEANS_H
+#ifndef electric_mobility_means_h
+#define electric_mobility_means_h
 
-typedef struct
-{
+
+typedef struct Electric_mobility_means {
     char name[50];
-    int battery_charge;
-    float cost;
-    char type[50];
+    char geocode[50]; // add new member 'geocode'
 } Electric_mobility_means;
 
-void insert_mobility_means_data(Electric_mobility_means *mobility_means);
-void remove_mobility_means_data(Electric_mobility_means *mobility_means);
-void change_mobility_means_data(Electric_mobility_means *mobility_means);
-void register_mobility_means_rental(Electric_mobility_means *mobility_means);
+void initialize(Electric_mobility_means *mobility_means);
+void print_data(Electric_mobility_means mobility_means);
 
 #endif
