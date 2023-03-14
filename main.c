@@ -1,6 +1,17 @@
 // main.c
 #include <stdio.h>
-#include "customers.h"
+#include <string.h>
+#include "electric_mobility_means.h"
+
+void insert_data(Electric_mobility_means *mobility_means) {
+    strcpy(mobility_means->name, "Name");
+    mobility_means->range = 100;
+}
+
+void remove_data(Electric_mobility_means *mobility_means) {
+    strcpy(mobility_means->name, "");
+    mobility_means->range = 0;
+}
 
 // Define a dynamic data structure for the representation of electric mobility means, customers and managers
 typedef struct
