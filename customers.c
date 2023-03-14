@@ -1,32 +1,30 @@
 // customers.c 
 #include "customers.h"
+#include <stdlib.h>
+#include <stdio.h>
+#include <string.h>
 
-// Insert new data (customers)
-void insert_data(Customers *customers)
-{
-    // insert new customers data
+void insert_data(Customers *customers) {
     strcpy(customers->name, "Name");
-    strcpy(customers->NIF, "NIF");
-    customers->balance = 10.0;
-    strcpy(customers->address, "Address");
+    strcpy(customers->email, "Email");
+    customers->age = 18;
 }
 
-// Remove certain data (customers)
-void remove_data(Customers *customers)
-{
-    // remove customers data
+void remove_data(Customers *customers) {
     strcpy(customers->name, "");
-    strcpy(customers->NIF, "");
-    customers->balance = 0.0;
-    strcpy(customers->address, "");
+    strcpy(customers->email, "");
+    customers->age = 0;
 }
 
-// Change certain data (customers)
-void change_data(Customers *customers)
-{
-    // change customers data
-    strcpy(customers->name, "New Name");
-    strcpy(customers->NIF, "New NIF");
-    customers->balance = 15.0;
-    strcpy(customers->address, "New Address");
+void change_data(Customers *customers) {
+    printf("Enter new name: ");
+    scanf("%s", customers->name);
+    printf("Enter new email: ");
+    scanf("%s", customers->email);
+    printf("Enter new age: ");
+    scanf("%d", &customers->age);
+}
+
+void print_data(Customers customers) {
+    printf("%s %s %d\n", customers.name, customers.email, customers.age);
 }
