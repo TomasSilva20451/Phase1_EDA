@@ -4,11 +4,12 @@
 
 
 typedef struct Electric_mobility_means {
-    char name[50];
-    char geocode[50]; // add new member 'geocode'
+    char name[20];
+    float range;
 } Electric_mobility_means;
 
-void initialize(Electric_mobility_means *mobility_means);
-void print_data(Electric_mobility_means mobility_means);
+void insert_data(Electric_mobility_means *mobility_means);
+void remove_data(Electric_mobility_means *mobility_means);
+
 
 #endif
