@@ -1,15 +1,15 @@
 // Electric_mobility_means.h
-#ifndef electric_mobility_means_h
-#define electric_mobility_means_h
+#ifndef ELECTRIC_MOBILITY_MEANS_H
+#define ELECTRIC_MOBILITY_MEANS_H
 
-
-typedef struct Electric_mobility_means {
-    char name[20];
-    float range;
-} Electric_mobility_means;
-
-void insert_data(Electric_mobility_means *mobility_means);
-void remove_data(Electric_mobility_means *mobility_means);
-
+struct Electric_mobility_means {
+    char brand[30];
+    char model[30];
+    int year;
+    double battery_capacity;
+    int top_speed;
+    double range;
+};
 
 #endif
+
