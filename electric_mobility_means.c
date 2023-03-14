@@ -1,5 +1,7 @@
 // Electric_mobility_means.c
+#include "electric_mobility_means.h"
 #include <string.h>
+
 typedef struct Electric_mobility_means_s
 {
     char name[50];
@@ -8,6 +10,15 @@ typedef struct Electric_mobility_means_s
     char type[50];
     char geocode[50];
 } Electric_mobility_means;
+
+void initialize(Electric_mobility_means *mobility_means) {
+    strcpy(mobility_means->name, "Name");
+    strcpy(mobility_means->geocode, "Geocode"); // add new member 'geocode'
+}
+
+void print_data(Electric_mobility_means mobility_means) {
+    printf("%s %s\n", mobility_means.name, mobility_means.geocode);
+}
 
 // Insert new data (electric mobility means)
 void insert_data(Electric_mobility_means *mobility_means)
