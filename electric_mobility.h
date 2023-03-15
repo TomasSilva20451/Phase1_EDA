@@ -2,21 +2,22 @@
 #define ELECTRIC_MOBILITY_H
 
 struct electric_mobility {
-    char code[7];
-    char type[21];
-    char location_geocode[17];
-    int battery_level;
-    float rental_cost;
+    char id[10];
+    char *type;
+    char *model;
+    char *manufacturer;
+    char *power_source;
+    int max_speed;
+    float autonomy;
+    float price;
+    float battery_level;
     struct electric_mobility *next;
 };
 
-void load_electric_mobility_data();
-void save_electric_mobility_data();
-void insert_electric_mobility(struct electric_mobility new_electric_mobility);
-void remove_electric_mobility(char *code);
-void update_electric_mobility(char *code, char *type, char *location_geocode, int battery_level, float rental_cost);
-void rent_electric_mobility(char *code);
-void list_electric_mobility_by_autonomy();
-void list_electric_mobility_by_location(char *geocode);
+struct electric_mobility *get_electric_mobility_head();
+void add_electric_mobility(char *id, char *type, char *model, char *manufacturer, char *power_source, int max_speed, float autonomy, float price, float battery_level);
+void print_all_electric_mobility();
+void update_battery_level(char *id, float battery_level);
+void delete_electric_mobility(char *id);
 
-#endif /* ELECTRIC_MOBILITY_H */
+#endif

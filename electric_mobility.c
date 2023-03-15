@@ -5,78 +5,86 @@
 
 struct electric_mobility *electric_mobility_head = NULL;
 
-/* Função para carregar os dados dos meios de mobilidade elétrica a partir de um ficheiro binário */
-void load_electric_mobility_data() {
-    FILE *fptr;
-    struct electric_mobility data;
-
-    fptr = fopen("electric_mobility.bin", "rb");
-    if (fptr == NULL) {
-        printf("Erro ao abrir o ficheiro electric_mobility.bin\n");
-        return;
-    }
-
-    while (fread(&data, sizeof(struct electric_mobility), 1, fptr) == 1) {
-        struct electric_mobility *new_electric_mobility = (struct electric_mobility*) malloc(sizeof(struct electric_mobility));
-        strcpy(new_electric_mobility->code, data.code);
-        strcpy(new_electric_mobility->type, data.type);
-        strcpy(new_electric_mobility->location_geocode, data.location_geocode);
-        new_electric_mobility->battery_level = data.battery_level;
-        new_electric_mobility->rental_cost = data.rental_cost;
-        new_electric_mobility->next = electric_mobility_head;
-        electric_mobility_head = new_electric_mobility;
-    }
-
-    fclose(fptr);
-}
-
-/* Função para guardar os dados dos meios de mobilidade elétrica num ficheiro binário */
-void save_electric_mobility_data() {
-    FILE *fptr;
-    struct electric_mobility *current = electric_mobility_head;
-
-    fptr = fopen("electric_mobility.bin", "wb");
-    if (fptr == NULL) {
-        printf("Erro ao abrir o ficheiro electric_mobility.bin\n");
-        return;
-    }
-
-    while (current != NULL) {
-        fwrite(current, sizeof(struct electric_mobility), 1, fptr);
-        current = current->next;
-    }
-
-    fclose(fptr);
-}
-
-/* Função para inserir um novo meio de mobilidade elétrica na lista */
-void insert_electric_mobility(struct electric_mobility new_electric_mobility) {
-    struct electric_mobility *new_node = (struct electric_mobility*) malloc(sizeof(struct electric_mobility));
-    strcpy(new_node->code, new_electric_mobility.code);
-    strcpy(new_node->type, new_electric_mobility.type);
-    strcpy(new_node->location_geocode, new_electric_mobility.location_geocode);
-    new_node->battery_level = new_electric_mobility.battery_level;
-    new_node->rental_cost = new_electric_mobility.rental_cost;
-    new_node->next = electric_mobility_head;
-    electric_mobility_head = new_node;
-/* Função para inserir um novo meio de mobilidade elétrica na lista */
-void insert_electric_mobility(struct electric_mobility new_mobility) {
-    /* Aloca memória para o novo nó */
-    struct electric_mobility_node *new_node = (struct electric_mobility_node*) malloc(sizeof(struct electric_mobility_node));
-
-    /* Define os valores do novo nó */
-    new_node->mobility = new_mobility;
+void add_electric_mobility(char *id, char *type, char *model, char *manufacturer,
+                            char *power_source, int max_speed, float autonomy,
+                            float price, float battery_level)
+{
+    struct electric_mobility *new_node = malloc(sizeof(struct electric_mobility));
+    new_node->id = strdup(id);
+    new_node->type = strdup(type);
+    new_node->model = strdup(model);
+    new_node->manufacturer = strdup(manufacturer);
+    new_node->power_source = strdup(power_source);
+    new_node->max_speed = max_speed;
+    new_node->autonomy = autonomy;
+    new_node->price = price;
+    new_node->battery_level = battery_level;
     new_node->next = NULL;
 
-    /* Adiciona o novo nó à lista */
-    if (electric_mobility_head == NULL) {
-        /* Lista vazia */
+    if (electric_mobility_head == NULL)
+    {
         electric_mobility_head = new_node;
-        electric_mobility_tail = new_node;
-    } else {
-        /* Lista não vazia */
-        electric_mobility_tail->next = new_node;
-        electric_mobility_tail = new_node;
+    }
+    else
+    {
+        struct electric_mobility *current = electric_mobility_head;
+        while (current->next != NULL)
+        {
+            current = current->next;
+        }
+        current->next = new_node;
     }
 }
 
+void print_all_electric_mobility()
+{
+    struct electric_mobility *current = electric_mobility_head;
+    while (current != NULL)
+    {
+        printf("ID: %s\n", current->id);
+        printf("Tipo: %s\n", current->type);
+        printf("Modelo: %s\n", current->model);
+        printf("Fabricante: %s\n", current->manufacturer);
+        printf("Fonte de energia: %s\n", current->power_source);
+        printf("Velocidade máxima: %d\n", current->max_speed);
+        printf("Autonomia: %.2f km\n", current->autonomy);
+        printf("Preço: R$%.2f\n", current->price);
+        printf("Bateria: %.2f%%\n", current->battery_level);
+        printf("\n");
+
+        current = current->next;
+    }
+}
+
+struct electric_mobility *get_electric_mobility_head()
+{
+    return electric_mobility_head;
+}
+
+void update_electric_mobility_battery_level(char *id, float battery_level)
+{
+    struct electric_mobility *current = electric_mobility_head;
+    while (current != NULL)
+    {
+        if (strcmp(current->id, id) == 0)
+        {
+            current->battery_level = battery_level;
+            break;
+        }
+        current = current->next;
+    }
+}
+
+struct electric_mobility *find_electric_mobility(char *id)
+{
+    struct electric_mobility *current = electric_mobility_head;
+    while (current != NULL)
+    {
+        if (strcmp(current->id, id) == 0)
+        {
+            return current;
+        }
+        current = current->next;
+    }
+    return NULL;
+}

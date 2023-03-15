@@ -1,21 +1,19 @@
 #ifndef CLIENT_H
 #define CLIENT_H
 
+#define MAX_NAME_LENGTH 50
+#define MAX_EMAIL_LENGTH 100
+#define MAX_PHONE_NUMBER_LENGTH 15
+
 struct client {
-    char nif[10];
-    char name[100];
-    char address[100];
-    float balance;
-    struct rental *rentals_head;
+    char name[MAX_NAME_LENGTH];
+    char email[MAX_EMAIL_LENGTH];
+    char phone_number[MAX_PHONE_NUMBER_LENGTH];
+    struct client *next;
 };
 
-void load_clients_from_file(char *filename);
-void save_clients_to_file(char *filename);
-void insert_client(struct client new_client);
-struct client *find_client(char *nif);
-void remove_client(char *nif);
-void list_clients();
-void recharge_balance(char *nif, float value);
-void add_rental_to_client(char *nif, struct rental *new_rental);
+void print_all_clients();
+void add_client(char *name, char *email, char *phone_number);
+void remove_client(char *email);
 
 #endif /* CLIENT_H */
