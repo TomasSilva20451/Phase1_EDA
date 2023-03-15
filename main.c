@@ -1,29 +1,36 @@
 #include <stdio.h>
-#include "manager.h"
 #include "client.h"
-#include "vehicle.h"
+#include "electric_mobility.h"
+#include "manager.h"
 
 int main()
 {
+    int option;
+
+    load_client_data_from_file("client.bin");
+    load_electric_mobility_data_from_file("electric_mobility.bin");
     load_manager_data_from_file("manager.bin");
 
-    int option = 0;
     do
     {
         printf("\n\n");
-        printf("1. Adicionar um novo veiculo\n");
-        printf("2. Adicionar um novo cliente\n");
-        printf("3. Adicionar um novo aluguer\n");
-        printf("4. Listar todos os veiculos\n");
-        printf("5. Listar todos os clientes\n");
-        printf("6. Listar todos os alugueres\n");
-        printf("7. Remover um veiculo\n");
-        printf("8. Remover um cliente\n");
-        printf("9. Alterar os dados de um cliente\n");
-        printf("10. Registar um aluguer\n");
-        printf("11. Listar todos os veiculos eletricos ordenados por autonomia decrescente\n");
-        printf("12. Sair\n");
-        printf("Escolha uma opcao: ");
+        printf("1 - Adicionar novo cliente\n");
+        printf("2 - Listar clientes\n");
+        printf("3 - Adicionar novo veículo elétrico\n");
+        printf("4 - Listar veículos elétricos\n");
+        printf("5 - Remover veículo elétrico\n");
+        printf("6 - Listar veículos elétricos por localização\n");
+        printf("7 - Listar veículos elétricos por ordem decrescente da autonomia\n");
+        printf("8 - Adicionar novo gestor\n");
+        printf("9 - Alterar dados de um cliente\n");
+        printf("10 - Remover um cliente\n");
+        printf("11 - Registar aluguer\n");
+        printf("12 - Listar veículos elétricos por autonomia e por localização\n");
+        printf("13 - Remover um gestor\n");
+        printf("14 - Listar gestores\n");
+        printf("0 - Sair\n\n");
+
+        printf("Escolha uma opção: ");
         scanf("%d", &option);
         getchar();
 
@@ -31,42 +38,42 @@ int main()
         {
         case 1:
         {
-            add_vehicle();
+            add_new_client();
             break;
         }
         case 2:
         {
-            add_client();
+            list_clients();
             break;
         }
         case 3:
         {
-            add_rental();
+            add_new_electric_mobility();
             break;
         }
         case 4:
         {
-            list_all_vehicles();
+            list_electric_mobility();
             break;
         }
         case 5:
         {
-            list_all_clients();
+            remove_electric_mobility();
             break;
         }
         case 6:
         {
-            list_all_rentals();
+            list_electric_mobility_by_location();
             break;
         }
         case 7:
         {
-            remove_vehicle();
+            list_electric_mobility_by_autonomy_descending_order();
             break;
         }
         case 8:
         {
-            remove_client();
+            add_new_manager();
             break;
         }
         case 9:
@@ -74,32 +81,54 @@ int main()
             char email[100];
             printf("E-mail do cliente a alterar: ");
             fgets(email, 100, stdin);
-            email[strcspn(email, "\n")] = 0;
             alter_client_data(email);
             break;
         }
         case 10:
         {
-            register_rental();
+            char email[100];
+            printf("E-mail do cliente a remover: ");
+            fgets(email, 100, stdin);
+            remove_client(email);
             break;
         }
         case 11:
         {
-            list_electric_mobility_by_autonomy_descending_order();
+            register_rental();
             break;
         }
         case 12:
         {
-            save_manager_data_to_file("manager.bin");
-            printf("Ate a proxima!\n");
+            list_electric_mobility_by_autonomy_and_location();
+            break;
+        }
+        case 13:
+        {
+            char email[100];
+            printf("E-mail do gestor a remover: ");
+            fgets(email, 100, stdin);
+            remove_manager(email);
+            break;
+        }
+        case 14:
+        {
+            list_managers();
+            break;
+        }
+        case 0:
+        {
             break;
         }
         default:
         {
-            printf("Opcao invalida.\n");
+            printf("Opção inválida!\n");
         }
         }
-    } while (option != 12);
+    } while (option != 0);
+
+    save_client_data_to_file("client.bin");
+    save_electric_mobility_data_to_file("electric_mobility.bin");
+    save_manager_data_to_file("manager.bin");
 
     return 0;
 }
