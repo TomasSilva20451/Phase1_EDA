@@ -1,34 +1,22 @@
 #ifndef MANAGER_H
 #define MANAGER_H
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-
-#define MAX_CODE_LENGTH 10
-#define MAX_LOCATION_LENGTH 20
-#define MAX_TYPE_LENGTH 20
-#define MAX_DESCRIPTION_LENGTH 100
+#define MAX_NAME_LENGTH 50
+#define MAX_EMAIL_LENGTH 50
+#define MAX_PASSWORD_LENGTH 50
 
 struct manager {
-    char code[MAX_CODE_LENGTH];
-    char location_geocode[MAX_LOCATION_LENGTH];
-    char type[MAX_TYPE_LENGTH];
-    float autonomy;
-    float battery_level;
-    float cost;
-    char description[MAX_DESCRIPTION_LENGTH];
+    char name[MAX_NAME_LENGTH];
+    char email[MAX_EMAIL_LENGTH];
+    char password[MAX_PASSWORD_LENGTH];
+    float salary;
+    struct manager *next;
 };
 
-extern struct manager *managers_head;
-
-void load_managers(char *file_path);
-void save_managers(char *file_path);
-void insert_manager(struct manager new_manager);
-void remove_manager(char *code);
-void update_manager_info(char *code, char *new_location_geocode, char *new_type, float new_autonomy, float new_battery_level, float new_cost, char *new_description);
-void list_all_managers();
-struct manager *find_manager_by_code(char *code);
-void list_electric_mobility_by_location(char *geocode);
+void add_manager(char *email, char *name, char *password, float salary);
+struct manager *find_manager_by_email(char *email);
+void update_manager_salary(char *email, float new_salary);
+void update_manager_info(char *email, char *new_name, char *new_password);
+void delete_manager(char *email);
 
 #endif /* MANAGER_H */

@@ -3,106 +3,99 @@
 #include <string.h>
 #include "manager.h"
 
-/* Variável global que representa a cabeça da lista de gestores */
 struct manager *managers_head = NULL;
 
-/* Função para carregar os dados dos gestores a partir de um ficheiro binário */
-void load_managers_data(char *filename) {
-    FILE *file = fopen(filename, "rb");
-    if (file != NULL) {
-        struct manager new_manager;
-        while (fread(&new_manager, sizeof(struct manager), 1, file)) {
-            insert_manager(new_manager);
-        }
-        fclose(file);
-    }
+void add_manager(char *email, char *name, char *password, float salary)
+{
+    struct manager *new_node = (struct manager *)malloc(sizeof(struct manager));
+    strcpy(new_node->email, email);
+    strcpy(new_node->name, name);
+    strcpy(new_node->password, password);
+    new_node->salary = salary;
+    new_node->next = managers_head;
+    managers_head = new_node;
 }
 
-/* Função para guardar os dados dos gestores num ficheiro binário */
-void save_managers_data(char *filename) {
-    FILE *file = fopen(filename, "wb");
-    if (file != NULL) {
-        struct manager *current = managers_head;
-        while (current != NULL) {
-            fwrite(current, sizeof(struct manager), 1, file);
-            current = current->next;
+struct manager *find_manager_by_email(char *email)
+{
+    struct manager *current = managers_head;
+    while (current != NULL)
+    {
+        if (strcmp(current->email, email) == 0)
+        {
+            return current;
         }
-        fclose(file);
+        current = current->next;
     }
+    return NULL;
 }
 
-/* Função para inserir um novo gestor na lista */
-void insert_manager(struct manager new_manager) {
-    if (managers_head == NULL) {
-        /* Lista vazia */
-        struct manager *new_node = (struct manager*) malloc(sizeof(struct manager));
-        *new_node = new_manager;
-        new_node->next = NULL;
-        managers_head = new_node;
-    } else {
-        /* Procura a última posição da lista */
-        struct manager *current = managers_head;
-        while (current->next != NULL) {
-            current = current->next;
-        }
-        /* Cria um novo nó na última posição */
-        struct manager *new_node = (struct manager*) malloc(sizeof(struct manager));
-        *new_node = new_manager;
-        new_node->next = NULL;
-        current->next = new_node;
-    }
-}
-
-/* Função para remover um gestor da lista */
-void remove_manager(char *email) {
+void delete_manager(char *email)
+{
     struct manager *current = managers_head;
     struct manager *previous = NULL;
-    while (current != NULL) {
-        if (strcmp(current->email, email) == 0) {
-            /* O gestor foi encontrado, remove-o da lista */
-            if (previous == NULL) {
-                /* O gestor é o primeiro da lista */
+
+    while (current != NULL)
+    {
+        if (strcmp(current->email, email) == 0)
+        {
+            if (previous == NULL)
+            {
                 managers_head = current->next;
-            } else {
-                /* O gestor está no meio ou no fim da lista */
+            }
+            else
+            {
                 previous->next = current->next;
             }
             free(current);
+            printf("Manager with email '%s' deleted successfully.\n", email);
             return;
         }
         previous = current;
         current = current->next;
     }
+
+    printf("Error: manager with email '%s' not found.\n", email);
 }
 
-/* Função para atualizar a informação de um gestor */
-void update_manager_info(char *email, char *new_name, char *new_password) {
-    struct manager *current = managers_head;
-    while (current != NULL) {
-        if (strcmp(current->email, email) == 0) {
-            /* O gestor foi encontrado, atualiza a informação */
-            if (new_name != NULL) {
-                strcpy(current->name, new_name);
-            }
-            if (new_password != NULL) {
-                strcpy(current->password, new_password);
-            }
-            return;
-        }
-        current = current->next;
+void update_manager_info(char *email, char *new_name, char *new_password)
+{
+    struct manager *manager = find_manager_by_email(email);
+
+    if (manager != NULL)
+    {
+        strcpy(manager->name, new_name);
+        strcpy(manager->password, new_password);
+        printf("Manager information updated successfully.\n");
+    }
+    else
+    {
+        printf("Error: manager with email '%s' not found.\n", email);
     }
 }
 
-/* Função para listar todos os gestores */
-void list_all_managers() {
-    printf("Lista de Gestores:\n");
-    struct manager *current = managers_head;
-    while (current != NULL) {
-        printf("Nome: %s\n", current->name);
-        printf("Email:%s\n", current->email);
-printf("Contacto: %s\n", current->phone);
-printf("NIF: %s\n", current->nif);
-printf("\n");
-current = current->next;
+void update_manager_salary(char *email, float new_salary)
+{
+    struct manager *manager = find_manager_by_email(email);
+
+    if (manager != NULL)
+    {
+        manager->salary = new_salary;
+        printf("Manager salary updated successfully.\n");
+    }
+    else
+    {
+        printf("Error: manager with email '%s' not found.\n", email);
+    }
 }
+
+void print_all_managers()
+{
+    struct manager *current = managers_head;
+    printf("%-20s%-16s%-24s%-6s\n", "Email", "Name", "Password", "Salary");
+    while (current != NULL)
+    {
+        printf("%-20s%-16s%-24s%-6.2f\n", current->email, current->name, current->password, current->salary);
+        current = current->next;
+    }
 }
