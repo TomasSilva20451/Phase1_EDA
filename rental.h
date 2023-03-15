@@ -5,18 +5,19 @@
 #include "client.h"
 #include "utils.h"
 
+#define MAX_RENTALS 1000
 #define RENTAL_HISTORY_FILE "rental_history.bin"
 
-struct rental {
-    char rental_id[11];
-    char nif[10];
-    char license_plate[9];
-    char rental_date[11];
-    char return_date[11];
+struct rental
+{
+    char client_nif[10];
+    int electric_mobility_id;
+    int duration;
+    float price;
 };
 
-void rent_electric_mobility(char *nif, char *license_plate);
-void return_electric_mobility(char *rental_id);
+int rent_electric_mobility(char *nif, int id, int duration);
+int return_electric_mobility(char *nif, int id);
 void list_rent_history();
 
-#endif
+#endif /* RENTAL_H */
