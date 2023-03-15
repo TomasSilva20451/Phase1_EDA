@@ -3,99 +3,43 @@
 #include <string.h>
 #include "manager.h"
 
-struct manager *managers_head = NULL;
+#define MANAGER_DATA_FILE_HEADER "MANAGER_DATA_FILE\n"
 
-void add_manager(char *email, char *name, char *password, float salary)
+void load_manager_data_from_file(char *filename)
 {
-    struct manager *new_node = (struct manager *)malloc(sizeof(struct manager));
-    strcpy(new_node->email, email);
-    strcpy(new_node->name, name);
-    strcpy(new_node->password, password);
-    new_node->salary = salary;
-    new_node->next = managers_head;
-    managers_head = new_node;
-}
+    FILE *file = fopen(filename, "r");
 
-struct manager *find_manager_by_email(char *email)
-{
-    struct manager *current = managers_head;
-    while (current != NULL)
+    if (!file)
     {
-        if (strcmp(current->email, email) == 0)
-        {
-            return current;
-        }
-        current = current->next;
-    }
-    return NULL;
-}
-
-void delete_manager(char *email)
-{
-    struct manager *current = managers_head;
-    struct manager *previous = NULL;
-
-    while (current != NULL)
-    {
-        if (strcmp(current->email, email) == 0)
-        {
-            if (previous == NULL)
-            {
-                managers_head = current->next;
-            }
-            else
-            {
-                previous->next = current->next;
-            }
-            free(current);
-            printf("Manager with email '%s' deleted successfully.\n", email);
-            return;
-        }
-        previous = current;
-        current = current->next;
+        printf("Could not open file: %s\n", filename);
+        return;
     }
 
-    printf("Error: manager with email '%s' not found.\n", email);
-}
-
-void update_manager_info(char *email, char *new_name, char *new_password)
-{
-    struct manager *manager = find_manager_by_email(email);
-
-    if (manager != NULL)
+    char header[sizeof(MANAGER_DATA_FILE_HEADER)];
+    if (fread(header, sizeof(header), 1, file) != 1 || strcmp(header, MANAGER_DATA_FILE_HEADER) != 0)
     {
-        strcpy(manager->name, new_name);
-        strcpy(manager->password, new_password);
-        printf("Manager information updated successfully.\n");
+        printf("Invalid file format: %s\n", filename);
+        fclose(file);
+        return;
     }
-    else
-    {
-        printf("Error: manager with email '%s' not found.\n", email);
-    }
-}
 
-void update_manager_salary(char *email, float new_salary)
-{
-    struct manager *manager = find_manager_by_email(email);
+    char name[MAX_MANAGER_NAME_LENGTH];
+    char email[MAX_MANAGER_EMAIL_LENGTH];
+    char password[MAX_MANAGER_PASSWORD_LENGTH];
+    char type[MAX_MANAGER_TYPE_LENGTH];
+    char location_geocode[MAX_MANAGER_LOCATION_GEOCODE_LENGTH];
+    float autonomy;
+    float battery_level;
+    float cost;
+    char description[MAX_MANAGER_DESCRIPTION_LENGTH];
+    float salary;
 
-    if (manager != NULL)
+    while (fscanf(file, "%s %s %s %s %s %f %f %f %s %f", email, name, password, type, location_geocode, &autonomy, &battery_level, &cost, description, &salary) == 10)
     {
-        manager->salary = new_salary;
-        printf("Manager salary updated successfully.\n");
+        add_manager(email, name, password, salary);
+        update_manager_info(email, name, password, type, location_geocode, autonomy, battery_level, cost, description);
     }
-    else
-    {
-        printf("Error: manager with email '%s' not found.\n", email);
-    }
-}
 
-void print_all_managers()
-{
-    struct manager *current = managers_head;
-    printf("%-20s%-16s%-24s%-6s\n", "Email", "Name", "Password", "Salary");
-    while (current != NULL)
-    {
-        printf("%-20s%-16s%-24s%-6.2f\n", current->email, current->name, current->password, current->salary);
-        current = current->next;
-    }
+    fclose(file);
+    printf("Manager data loaded from file: %s\n", filename);
 }

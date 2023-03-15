@@ -38,7 +38,7 @@ int main()
         {
         case 1:
         {
-            add_new_client();
+            add_client();
             break;
         }
         case 2:
