@@ -2,106 +2,61 @@
 #include <stdlib.h>
 #include <string.h>
 #include "electric_mobility.h"
-#include "client.h"
-#include "manager.h"
-#include "file_handling.h"
+#include "rental.h"
 
-/* Função para ler os dados dos gestores a partir de um ficheiro binário */
-void read_managers_file(char *filename) {
-    FILE *fp = fopen(filename, "rb");
-    if (fp == NULL) {
-        printf("Erro ao abrir o ficheiro.\n");
-        return;
-    }
+void write_electric_mobility_to_file(FILE *fp, Electric_mobility *em)
+{
+    fwrite(em, sizeof(Electric_mobility), 1, fp);
+}
 
-    struct manager m;
-    while (fread(&m, sizeof(struct manager), 1, fp)) {
-        insert_manager(m);
-    }
+Electric_mobility *read_electric_mobility_from_file(FILE *fp)
+{
+    Electric_mobility *em = (Electric_mobility *)malloc(sizeof(Electric_mobility));
+    fread(em, sizeof(Electric_mobility), 1, fp);
+    return em;
+}
 
+void save_electric_mobility_to_file(Electric_mobility *em)
+{
+    FILE *fp = fopen("electric_mobility.dat", "ab");
+    write_electric_mobility_to_file(fp, em);
     fclose(fp);
 }
 
-/* Função para escrever os dados dos gestores para um ficheiro binário */
-void write_managers_file(char *filename) {
-    FILE *fp = fopen(filename, "wb");
-    if (fp == NULL) {
-        printf("Erro ao abrir o ficheiro.\n");
-        return;
-    }
+Electric_mobility *find_electric_mobility_by_id(int id)
+{
+    FILE *fp = fopen("electric_mobility.dat", "rb");
+    Electric_mobility *em;
 
-    struct manager *current = managers_head;
-    while (current != NULL) {
-        fwrite(current, sizeof(struct manager), 1, fp);
-        current = current->next;
-    }
-
-    fclose(fp);
-}
-
-/* Função para ler os dados dos clientes a partir de um ficheiro binário */
-void read_clients_file(char *filename) {
-    FILE *fp = fopen(filename, "rb");
-    if (fp == NULL) {
-        printf("Erro ao abrir o ficheiro.\n");
-        return;
-    }
-
-    struct client c;
-    while (fread(&c, sizeof(struct client), 1, fp)) {
-        insert_client(c);
+    while ((em = read_electric_mobility_from_file(fp)) != NULL)
+    {
+        if (em->id == id)
+        {
+            fclose(fp);
+            return em;
+        }
     }
 
     fclose(fp);
+    return NULL;
 }
 
-/* Função para escrever os dados dos clientes para um ficheiro binário */
-void write_clients_file(char *filename) {
-    FILE *fp = fopen(filename, "wb");
-    if (fp == NULL) {
-        printf("Erro ao abrir o ficheiro.\n");
-        return;
-    }
+void delete_electric_mobility(int id)
+{
+    FILE *fp = fopen("electric_mobility.dat", "rb");
+    FILE *tmp = fopen("tmp.dat", "wb");
+    Electric_mobility *em;
 
-    struct client *current = clients_head;
-    while (current != NULL) {
-        fwrite(current, sizeof(struct client), 1, fp);
-        current = current->next;
+    while ((em = read_electric_mobility_from_file(fp)) != NULL)
+    {
+        if (em->id != id)
+        {
+            write_electric_mobility_to_file(tmp, em);
+        }
     }
 
     fclose(fp);
+    fclose(tmp);
+    remove("electric_mobility.dat");
+    rename("tmp.dat", "electric_mobility.dat");
 }
-
-/* Função para ler os dados dos meios de mobilidade elétrica a partir de um ficheiro binário */
-void read_electric_mobility_file(char *filename) {
-    FILE *fp = fopen(filename, "rb");
-    if (fp == NULL) {
-        printf("Erro ao abrir o ficheiro.\n");
-        return;
-    }
-
-    struct electric_mobility em;
-    while (fread(&em, sizeof(struct electric_mobility), 1, fp)) {
-        insert_electric_mobility(em);
-    }
-
-    fclose(fp);
-}
-
-/* Função para escrever os dados dos meios de mobilidade elétrica para um ficheiro binário */
-void write_electric_mobility_file(char *filename) {
-    FILE *fp = fopen(filename, "wb");
-    if (fp == NULL) {
-        printf("Erro ao abrir o ficheiro.\n");
-        return;
-    }
-
-    struct electric_mobility *current = electric_mobility_head;
-    while (current != NULL) {
-        fwrite(current, sizeof(struct electric_mobility), 1, fp);
-        current = current->next;
-    }
-
-    fclose(fp);
-}
-
