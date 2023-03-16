@@ -4,13 +4,15 @@
 #include <stdbool.h>
 
 /* Definição da estrutura nó */
-struct node {
+struct node
+{
     void *data;
     struct node *next;
 };
 
 /* Definição da estrutura lista */
-struct list {
+struct list
+{
     struct node *head;
     int size;
 };

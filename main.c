@@ -11,7 +11,6 @@
 
 int main()
 {
-
     int option;
 
     load_client_data_from_file("client.bin");
@@ -102,7 +101,7 @@ int main()
         case 6:
         {
             char location[100];
-            printf("Localização: ");
+            printf("Localização dos veículos: ");
             fgets(location, 100, stdin);
             list_electric_mobility_by_location(location);
             break;
@@ -114,22 +113,28 @@ int main()
         }
         case 8:
         {
-            char name[100], email[100], password[20];
+            char name[100], email[100], phone_number[20], password[100];
             printf("Nome: ");
             fgets(name, 100, stdin);
             printf("E-mail: ");
             fgets(email, 100, stdin);
+            printf("Número de telefone: ");
+            fgets(phone_number, 20, stdin);
             printf("Password: ");
-            fgets(password, 20, stdin);
-            add_manager(name, email, password);
+            fgets(password, 100, stdin);
+            add_manager(name, email, phone_number, password);
             break;
         }
         case 9:
         {
-            char nif[10];
+            char nif[10], new_email[100], new_phone_number[20];
             printf("NIF do cliente a alterar: ");
             fgets(nif, 10, stdin);
-            change_client_data(nif);
+            printf("Novo e-mail: ");
+            fgets(new_email, 100, stdin);
+            printf("Novo número de telefone: ");
+            fgets(new_phone_number, 20, stdin);
+            update_client_data(nif, new_email, new_phone_number);
             break;
         }
         case 10:
@@ -142,21 +147,28 @@ int main()
         }
         case 11:
         {
-            char license_plate[10], nif[10], start_time[20], end_time[20];
-            printf("Matrícula do veículo: ");
-            fgets(license_plate, 10, stdin);
+            char nif[10], license_plate[10], start_date[20], start_time[20];
+            int duration;
             printf("NIF do cliente: ");
             fgets(nif, 10, stdin);
-            printf("Hora de início (formato DD/MM/AAAA HH:MM): ");
+            printf("Matrícula do veículo: ");
+            fgets(license_plate, 10, stdin);
+            printf("Data de início (dd/mm/aaaa): ");
+            fgets(start_date, 20, stdin);
+            printf("Hora de início (hh:mm): ");
             fgets(start_time, 20, stdin);
-            printf("Hora de fim (formato DD/MM/AAAA HH:MM): ");
-            fgets(end_time, 20, stdin);
-            register_rental(license_plate, nif, start_time, end_time);
+            printf("Duração do aluguer (em minutos): ");
+            scanf("%d", &duration);
+            getchar();
+            register_rental(nif, license_plate, start_date, start_time, duration);
             break;
         }
         case 12:
         {
-            list_electric_mobility_by_autonomy_and_location();
+            char location[100];
+            printf("Localização dos veículos: ");
+            fgets(location, 100, stdin);
+            list_electric_mobility_by_autonomy_and_location(location);
             break;
         }
         case 13:
@@ -177,32 +189,15 @@ int main()
             save_client_data_to_file("client.bin");
             save_electric_mobility_data_to_file("electric_mobility.bin");
             save_manager_data_to_file("manager.bin");
-            printf("Saindo do programa...\n");
+            printf("A sair...\n");
             break;
         }
         default:
         {
-            printf("Opção inválida!\n");
+            printf("Opção inválida. Por favor, tente novamente.\n");
             break;
         }
         }
-
     } while (option != 0);
-
-    ElectricMobility em1 = {"ABC123", "Tesla", "Model 3", "Red", "California", 50000};
-    ElectricMobility em2 = {"XYZ456", "Chevrolet", "Bolt", "Blue", "New York", 40000};
-
-    // Add electric mobility to the list
-    add_electric_mobility(em1);
-    add_electric_mobility(em2);
-
-    // List electric mobility by location
-    char location[] = "California";
-    list_electric_mobility_by_location(location);
-
-    // Delete electric mobility by license plate
-    char license_plate[] = "XYZ456";
-    delete_electric_mobility(license_plate);
-
     return 0;
 }

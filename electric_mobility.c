@@ -1,193 +1,112 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
+#include "client.h"
 #include "electric_mobility.h"
 
-struct electric_mobility *electric_mobility_head = NULL;
+#define PRICE 0.25
 
-void add_electric_mobility(char *id, char *type, char *model, char *manufacturer,
-                           char *power_source, int max_speed, float autonomy,
-                           float price, float battery_level)
+struct electric_mobility_t
 {
-    struct electric_mobility *new_node = malloc(sizeof(struct electric_mobility));
-    new_node->id = strdup(id);
-    new_node->type = strdup(type);
-    new_node->model = strdup(model);
-    new_node->manufacturer = strdup(manufacturer);
-    new_node->power_source = strdup(power_source);
-    new_node->max_speed = max_speed;
-    new_node->autonomy = autonomy;
-    new_node->price = price;
-    new_node->battery_level = battery_level;
-    new_node->next = NULL;
+    int battery_level;
+};
 
-    if (electric_mobility_head == NULL)
+ElectricMobility *create_electric_mobility(int battery_level)
+{
+    ElectricMobility *em = (ElectricMobility *)malloc(sizeof(ElectricMobility));
+    em->battery_level = battery_level;
+    return em;
+}
+
+void charge(ElectricMobility *em)
+{
+    em->battery_level = 100;
+    printf("Battery charged to 100%%\n");
+}
+
+void ride(ElectricMobility *em, Client *client, int distance)
+{
+    if (em->battery_level <= 0)
     {
-        electric_mobility_head = new_node;
+        printf("Error: Battery is dead. Please charge the vehicle before riding.\n");
+        return;
+    }
+    if (distance > em->battery_level * 4)
+    {
+        printf("Error: Vehicle can't make the trip. Please choose a shorter distance or charge the vehicle.\n");
+        return;
+    }
+    float cost = distance * PRICE;
+    if (withdraw(client, cost))
+    {
+        em->battery_level -= distance / 4;
+        printf("Ride completed. Your new account balance is $%.2f. Vehicle's battery level is now %d%%.\n", get_balance(client), em->battery_level);
     }
     else
     {
-        struct electric_mobility *current = electric_mobility_head;
-        while (current->next != NULL)
-        {
-            current = current->next;
-        }
-        current->next = new_node;
+        printf("Error: Insufficient funds to complete the ride.\n");
     }
 }
 
-void print_all_electric_mobility()
+void destroy_electric_mobility(ElectricMobility *em)
 {
-    struct electric_mobility *current = electric_mobility_head;
-    while (current != NULL)
+    free(em->model);
+    free(em->color);
+    free(em->brand);
+    free(em);
+}
+
+void print_electric_mobility(ElectricMobility *em)
+{
+    printf("Model: %s\n", em->model);
+    printf("Brand: %s\n", em->brand);
+    printf("Color: %s\n", em->color);
+    printf("Year: %d\n", em->year);
+    printf("Range: %d km\n", em->range);
+    printf("Top speed: %d km/h\n", em->top_speed);
+    printf("Battery capacity: %d kWh\n", em->battery_capacity);
+    printf("Price: %d €\n", em->price);
+}
+
+ElectricMobility *create_electric_mobility(char *model, char *brand, char *color, int year,
+                                           int range, int top_speed, int battery_capacity,
+                                           int price)
+{
+    ElectricMobility *em = (ElectricMobility *)malloc(sizeof(ElectricMobility));
+    if (em == NULL)
     {
-        printf("ID: %s\n", current->id);
-        printf("Tipo: %s\n", current->type);
-        printf("Modelo: %s\n", current->model);
-        printf("Fabricante: %s\n", current->manufacturer);
-        printf("Fonte de energia: %s\n", current->power_source);
-        printf("Velocidade máxima: %d\n", current->max_speed);
-        printf("Autonomia: %.2f km\n", current->autonomy);
-        printf("Preço: R$%.2f\n", current->price);
-        printf("Bateria: %.2f%%\n", current->battery_level);
-        printf("\n");
-
-        current = current->next;
+        printf("Error: Could not allocate memory for ElectricMobility.\n");
+        exit(1);
     }
-}
 
-struct electric_mobility *get_electric_mobility_head()
-{
-    return electric_mobility_head;
-}
-
-void update_electric_mobility_battery_level(char *id, float battery_level)
-{
-    struct electric_mobility *current = electric_mobility_head;
-    while (current != NULL)
+    em->model = (char *)malloc((strlen(model) + 1) * sizeof(char));
+    if (em->model == NULL)
     {
-        if (strcmp(current->id, id) == 0)
-        {
-            current->battery_level = battery_level;
-            break;
-        }
-        current = current->next;
+        printf("Error: Could not allocate memory for ElectricMobility model.\n");
+        exit(1);
     }
-}
+    strcpy(em->model, model);
 
-struct electric_mobility *find_electric_mobility(char *id)
-{
-    struct electric_mobility *current = electric_mobility_head;
-    while (current != NULL)
+    em->brand = (char *)malloc((strlen(brand) + 1) * sizeof(char));
+    if (em->brand == NULL)
     {
-        if (strcmp(current->id, id) == 0)
-        {
-            return current;
-        }
-        current = current->next;
+        printf("Error: Could not allocate memory for ElectricMobility brand.\n");
+        exit(1);
     }
-    return NULL;
-}
-void list_electric_mobility_by_location(char *location)
-{
-    printf("Lista de veículos elétricos disponíveis em %s:\n", location);
+    strcpy(em->brand, brand);
 
-    struct electric_mobility *current = electric_mobility_head;
-    while (current != NULL)
+    em->color = (char *)malloc((strlen(color) + 1) * sizeof(char));
+    if (em->color == NULL)
     {
-        if (strstr(current->manufacturer, location) != NULL)
-        {
-            printf("ID: %s\n", current->id);
-            printf("Tipo: %s\n", current->type);
-            printf("Modelo: %s\n", current->model);
-            printf("Fabricante: %s\n", current->manufacturer);
-            printf("Fonte de energia: %s\n", current->power_source);
-            printf("Velocidade máxima: %d\n", current->max_speed);
-            printf("Autonomia: %.2f km\n", current->autonomy);
-            printf("Preço: R$%.2f\n", current->price);
-            printf("Bateria: %.2f%%\n", current->battery_level);
-            printf("\n");
-        }
-        current = current->next;
+        printf("Error: Could not allocate memory for ElectricMobility color.\n");
+        exit(1);
     }
-}
+    strcpy(em->color, color);
 
-void update_electric_mobility_autonomy(char *id, float autonomy)
-{
-    struct electric_mobility *current = electric_mobility_head;
-    while (current != NULL)
-    {
-        if (strcmp(current->id, id) == 0)
-        {
-            current->autonomy = autonomy;
-            break;
-        }
-        current = current->next;
-    }
-}
+    em->year = year;
+    em->range = range;
+    em->top_speed = top_speed;
+    em->battery_capacity = battery_capacity;
+    em->price = price;
 
-void update_electric_mobility_price(char *id, float price)
-{
-    struct electric_mobility *current = electric_mobility_head;
-    while (current != NULL)
-    {
-        if (strcmp(current->id, id) == 0)
-        {
-            current->price = price;
-            break;
-        }
-        current = current->next;
-    }
-}
-
-void remove_electric_mobility(char *id)
-{
-    struct electric_mobility *current = electric_mobility_head;
-    struct electric_mobility *previous = NULL;
-
-    while (current != NULL)
-    {
-        if (strcmp(current->id, id) == 0)
-        {
-            if (previous == NULL)
-            {
-                electric_mobility_head = current->next;
-            }
-            else
-            {
-                previous->next = current->next;
-            }
-
-            free(current->id);
-            free(current->type);
-            free(current->model);
-            free(current->manufacturer);
-            free(current->power_source);
-            free(current);
-            printf("Veículo elétrico com ID %s foi removido com sucesso!\n", id);
-            return;
-        }
-
-        previous = current;
-        current = current->next;
-    }
-
-    printf("Veículo elétrico com ID %s não encontrado.\n", id);
-}
-
-void free_all_electric_mobility()
-{
-    struct electric_mobility *current = electric_mobility_head;
-    while (current != NULL)
-    {
-        struct electric_mobility *temp = current;
-        current = current->next;
-
-        free(temp->id);
-        free(temp->type);
-        free(temp->model);
-        free(temp->manufacturer);
-        free(temp->power_source);
-        free(temp);
-    }
+    return em;
 }

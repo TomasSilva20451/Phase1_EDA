@@ -1,24 +1,25 @@
 #ifndef CLIENT_H
 #define CLIENT_H
 
-#define MAX_CLIENTS 100
+#define MAX_NAME_LENGTH 50
+#define MAX_ADDRESS_LENGTH 100
+#define MAX_ACCOUNTS 5
 
-struct client
-{
-    char name[101];
-    char email[101];
-    char phone_number[21];
-    char nif[10];
-};
+typedef struct {
+    char name[MAX_NAME_LENGTH];
+    char address[MAX_ADDRESS_LENGTH];
+    int age;
+    int account_numbers[MAX_ACCOUNTS];
+    double account_balances[MAX_ACCOUNTS];
+    int num_accounts;
+} Client;
 
-void add_client(char *name, char *email, char *phone_number, char *nif);
-void list_clients();
-void search_client();
-void delete_client();
-void save_client_data_to_file(char *filename);
-void load_client_data_from_file(char *filename);
-int get_num_clients();
-struct client *get_client_by_index(int index);
-int get_client_index_by_nif(char *nif);
+Client *new_client(char *name, char *address, int age);
 
-#endif
+void add_account(Client *client, int account_number, double balance);
+
+void save_clients(char *filename, Client **clients, int num_clients);
+
+Client **load_clients(char *filename, int *num_clients);
+
+#endif /* CLIENT_H */

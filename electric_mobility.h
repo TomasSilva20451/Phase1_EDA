@@ -1,19 +1,14 @@
 #ifndef ELECTRIC_MOBILITY_H
 #define ELECTRIC_MOBILITY_H
 
-#define MAX_ELECTRIC_MOBILITY 100
+#include "client.h"
 
-typedef struct ElectricMobility {
-    char license_plate[10];
-    char make[20];
-    char model[20];
-    char color[10];
-    char location[20];
-    int price;
-} ElectricMobility;
+typedef struct electric_mobility ElectricMobility;
 
-void add_electric_mobility(ElectricMobility em);
-void list_electric_mobility_by_location(char *location);
-void delete_electric_mobility(char *license_plate);
+ElectricMobility* create_electric_mobility(int id, float price_per_kwh);
+void destroy_electric_mobility(ElectricMobility* em);
+float get_price_per_kwh(ElectricMobility* em);
+void set_price_per_kwh(ElectricMobility* em, float price_per_kwh);
+float calculate_price(ElectricMobility* em, Client* client, float kwh);
 
-#endif
+#endif /* ELECTRIC_MOBILITY_H */
