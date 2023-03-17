@@ -176,6 +176,9 @@ int main()
         {
             char nif[10], license_plate[10], start_date[20], start_time[20];
             int duration;
+
+            int nif_as_int = atoi(nif);
+
             printf("NIF do cliente: ");
             fgets(nif, 10, stdin);
             printf("Matrícula do veículo: ");
