@@ -25,6 +25,7 @@ struct manager
 
 void print_all_managers();
 void add_manager(char *email, char *name, char *password, float salary);
+
 void delete_manager(char *email);
 void update_manager_info(char *email, char *new_name, char *new_password, char *new_type, char *new_location_geocode, float new_autonomy, float new_battery_level, float new_cost, char *new_description);
 void save_manager_data_to_file(char *filename);

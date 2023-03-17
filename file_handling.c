@@ -4,29 +4,29 @@
 #include "electric_mobility.h"
 #include "rental.h"
 
-void write_electric_mobility_to_file(FILE *fp, Electric_mobility *em)
+void write_electric_mobility_to_file(FILE *fp, ElectricMobility *em)
 {
-    fwrite(em, sizeof(Electric_mobility), 1, fp);
+    fwrite(em, sizeof(ElectricMobility), 1, fp);
 }
 
-Electric_mobility *read_electric_mobility_from_file(FILE *fp)
+ElectricMobility *read_electric_mobility_from_file(FILE *fp)
 {
-    Electric_mobility *em = (Electric_mobility *)malloc(sizeof(Electric_mobility));
-    fread(em, sizeof(Electric_mobility), 1, fp);
+    ElectricMobility *em = (ElectricMobility *)malloc(sizeof(ElectricMobility));
+    fread(em, sizeof(ElectricMobility), 1, fp);
     return em;
 }
 
-void save_electric_mobility_to_file(Electric_mobility *em)
+void save_electric_mobility_to_file(ElectricMobility *em)
 {
     FILE *fp = fopen("electric_mobility.dat", "ab");
     write_electric_mobility_to_file(fp, em);
     fclose(fp);
 }
 
-Electric_mobility *find_electric_mobility_by_id(int id)
+ElectricMobility *find_electric_mobility_by_id(int id)
 {
     FILE *fp = fopen("electric_mobility.dat", "rb");
-    Electric_mobility *em;
+    ElectricMobility *em;
 
     while ((em = read_electric_mobility_from_file(fp)) != NULL)
     {
@@ -45,7 +45,7 @@ void delete_electric_mobility(int id)
 {
     FILE *fp = fopen("electric_mobility.dat", "rb");
     FILE *tmp = fopen("tmp.dat", "wb");
-    Electric_mobility *em;
+    ElectricMobility *em;
 
     while ((em = read_electric_mobility_from_file(fp)) != NULL)
     {

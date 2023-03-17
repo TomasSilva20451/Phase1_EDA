@@ -135,16 +135,34 @@ int main()
         }
         case 8:
         {
-            char name[100], email[100], password[100];
+            /* char name[100], email[100], password[100];
+             char phone_number_str[20];
+             float phone_number_float;
+
+             printf("Nome: ");
+             fgets(name, 100, stdin);
+             printf("E-mail: ");
+             fgets(email, 100, stdin);
+             printf("Número de telefone: ");
+             fgets(phone_number_str, 20, stdin);
+             phone_number_float = atof(phone_number_str);
+             printf("Password: ");
+             fgets(password, 100, stdin);
+
+             char phone_number_str[20];
+             snprintf(phone_number_str, 20, "%.2f", phone_number_float);
+             add_manager(name, email, phone_number_str, password);
+ */ char name[100], email[100], password[100];
             char phone_number_str[20];
-            // float phone_number_float = atof(phone_number);
+            float phone_number_float;
 
             printf("Nome: ");
             fgets(name, 100, stdin);
             printf("E-mail: ");
             fgets(email, 100, stdin);
             printf("Número de telefone: ");
-            snprintf(phone_number_str, sizeof(phone_number_str), "%.2s", phone_number_str);
+            fgets(phone_number_str, 20, stdin);
+            phone_number_float = atof(phone_number_str);
             printf("Password: ");
             fgets(password, 100, stdin);
 
@@ -154,9 +172,11 @@ int main()
         }
         case 9:
         {
-            char nif[10], new_email[100], new_phone_number[20];
+            char nif_str[10], new_email[100], new_phone_number[20];
+            int nif;
             printf("NIF do cliente a alterar: ");
-            fgets(nif, 10, stdin);
+            fgets(nif_str, 10, stdin);
+            nif = atoi(nif_str);
             printf("Novo e-mail: ");
             fgets(new_email, 100, stdin);
             printf("Novo número de telefone: ");
@@ -177,10 +197,9 @@ int main()
             char nif[10], license_plate[10], start_date[20], start_time[20];
             int duration;
 
-            int nif_as_int = atoi(nif);
-
             printf("NIF do cliente: ");
             fgets(nif, 10, stdin);
+            int nif_as_int = atoi(nif); // Converter nif para inteiro
             printf("Matrícula do veículo: ");
             fgets(license_plate, 10, stdin);
             printf("Data de início (dd/mm/aaaa): ");
@@ -190,7 +209,7 @@ int main()
             printf("Duração do aluguer (em minutos): ");
             scanf("%d", &duration);
             getchar();
-            register_rental(nif, license_plate, start_date, start_time, duration);
+            register_rental(nif_as_int, license_plate, start_date, start_time, duration); // Passar nif convertido para inteiro
             break;
         }
         case 12:
