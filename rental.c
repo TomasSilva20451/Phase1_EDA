@@ -1,9 +1,18 @@
+// rental.c
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
 #include "electric_mobility.h"
 #include "rental.h"
+
+typedef struct
+{
+    char *nif;
+    int id;
+    int duration;
+    int rental_cost;
+} Rental;
 
 void save_rental_to_file(Rental *rental);
 void save_electric_mobility_to_file(ElectricMobility *em);
@@ -21,7 +30,6 @@ int rent_electric_mobility(char *nif, int id, int duration)
         printf("Veículo elétrico com ID %d não encontrado\n", id);
         return 1;
     }
-
     if (!em->available)
     {
         printf("Veículo elétrico com ID %d não está disponível para aluguel\n", id);
