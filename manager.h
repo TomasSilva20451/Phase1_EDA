@@ -30,5 +30,4 @@ void update_manager_info(char *email, char *new_name, char *new_password, char *
 void save_manager_data_to_file(char *filename);
 void load_manager_data_from_file(char *filename);
 
-#endif /* MANAGER_H */ _from_file(char *filename);
-
+#endif

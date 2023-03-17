@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include "client.h"
 #include "electric_mobility.h"
 
@@ -30,6 +31,7 @@ void charge(ElectricMobility *em)
     printf("Battery charged to 100%%\n");
 }
 
+/*
 void ride(ElectricMobility *em, Client *client, int distance)
 {
     if (em->battery_level <= 0)
@@ -43,6 +45,7 @@ void ride(ElectricMobility *em, Client *client, int distance)
         return;
     }
     float cost = distance * PRICE;
+
     if (withdraw(client, cost))
     {
         em->battery_level -= distance / 4;
@@ -53,30 +56,27 @@ void ride(ElectricMobility *em, Client *client, int distance)
         printf("Error: Insufficient funds to complete the ride.\n");
     }
 }
+*/
 
 void destroy_electric_mobility(ElectricMobility *em)
 {
-    free(em->model);
-    free(em->color);
-    free(em->brand);
     free(em);
 }
 
 void print_electric_mobility(ElectricMobility *em)
 {
-    printf("Model: %s\n", em->model);
-    printf("Brand: %s\n", em->brand);
-    printf("Color: %s\n", em->color);
-    printf("Year: %d\n", em->year);
-    printf("Range: %d km\n", em->range);
-    printf("Top speed: %d km/h\n", em->top_speed);
-    printf("Battery capacity: %d kWh\n", em->battery_capacity);
-    printf("Price: %d €\n", em->price);
+
+    printf("ID: %d\n", em->id);
+    printf("name: %s\n", em->name);
+    printf("price: %f €\n", em->price);
+    printf("stock: %d\n", em->stock);
+    printf("rent: %f\n", em->rent);
+    printf("autonomy: %f km\n", em->autonomy);
+    printf("battery_level: %d\n", em->battery_level);
 }
 
-ElectricMobility *create_electric_mobility(char *model, char *brand, char *color, int year,
-                                           int range, int top_speed, int battery_capacity,
-                                           int price)
+/*
+ElectricMobility *create_electric_mobility(int id, char *name, float price, int stock, float rent, float autonomy, int battery_level)
 {
     ElectricMobility *em = (ElectricMobility *)malloc(sizeof(ElectricMobility));
     if (em == NULL)
@@ -85,21 +85,21 @@ ElectricMobility *create_electric_mobility(char *model, char *brand, char *color
         exit(1);
     }
 
-    em->model = (char *)malloc((strlen(model) + 1) * sizeof(char));
-    if (em->model == NULL)
+    em->name = (char *)malloc((strlen(name) + 1) * sizeof(char));
+    if (em->name == NULL)
     {
         printf("Error: Could not allocate memory for ElectricMobility model.\n");
         exit(1);
     }
-    strcpy(em->model, model);
+    strcpy(em->name, name);
 
-    em->brand = (char *)malloc((strlen(brand) + 1) * sizeof(char));
-    if (em->brand == NULL)
+    em->price = (float *)malloc((strlen(price) + 1) * sizeof(char));
+    if (em->price == NULL)
     {
         printf("Error: Could not allocate memory for ElectricMobility brand.\n");
         exit(1);
     }
-    strcpy(em->brand, brand);
+    strcpy(em->price, price);
 
     em->color = (char *)malloc((strlen(color) + 1) * sizeof(char));
     if (em->color == NULL)
@@ -109,11 +109,12 @@ ElectricMobility *create_electric_mobility(char *model, char *brand, char *color
     }
     strcpy(em->color, color);
 
-    em->year = year;
-    em->range = range;
-    em->top_speed = top_speed;
-    em->battery_capacity = battery_capacity;
-    em->price = price;
+em->year = year;
+em->range = range;
+em->top_speed = top_speed;
+em->battery_capacity = battery_capacity;
+em->price = price;
 
-    return em;
+return em;
 }
+*/
