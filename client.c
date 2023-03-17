@@ -7,11 +7,11 @@ struct client *clients_head = NULL;
 
 void add_client(char *name, char *email, char *phone_number, char *nif)
 {
-    struct client *new_node = malloc(sizeof(struct client));
+    struct client *new_node = malloc(sizeof(struct client*));
     strncpy(new_node->name, name, MAX_NAME_LENGTH - 1);
     new_node->name[MAX_NAME_LENGTH - 1] = '\0';
-    strncpy(new_node->email, email, MAX_EMAIL_LENGTH - 1);
-    new_node->email[MAX_EMAIL_LENGTH - 1] = '\0';
+    strncpy(new_node->email, email, MAX_EMAIL - 1);
+    new_node->email[MAX_EMAIL - 1] = '\0';
     strncpy(new_node->phone_number, phone_number, MAX_PHONE_NUMBER_LENGTH - 1);
     new_node->phone_number[MAX_PHONE_NUMBER_LENGTH - 1] = '\0';
     strncpy(new_node->nif, nif, MAX_NIF_LENGTH - 1);
@@ -82,15 +82,15 @@ void load_clients(char *filename)
     }
 
     char name[MAX_NAME_LENGTH];
-    char email[MAX_EMAIL_LENGTH];
+    char email[MAX_EMAIL];
     char phone_number[MAX_PHONE_NUMBER_LENGTH];
     char nif[MAX_NIF_LENGTH];
 
     while (fread(name, MAX_NAME_LENGTH - 1, 1, fp) == 1)
     {
         name[MAX_NAME_LENGTH - 1] = '\0';
-        fread(email, MAX_EMAIL_LENGTH - 1, 1, fp);
-        email[MAX_EMAIL_LENGTH - 1] = '\0';
+        fread(email, MAX_EMAIL - 1, 1, fp);
+        email[MAX_EMAIL - 1] = '\0';
         fread(phone_number, MAX_PHONE_NUMBER_LENGTH - 1, 1, fp);
         phone_number[MAX_PHONE_NUMBER_LENGTH - 1] = '\0';
         fread(nif, MAX_NIF_LENGTH - 1, 1, fp);
@@ -101,7 +101,7 @@ void load_clients(char *filename)
 
     fclose(fp);
 }
-void save_clients(char *filename)
+/*void save_clients(char *filename)
 {
     FILE *outfile = fopen(filename, "w");
     if (outfile == NULL)
@@ -118,4 +118,6 @@ void save_clients(char *filename)
 
     fclose(outfile);
     printf("Saved %d clients to %s\n", num_clients, filename);
-}
+}*/
+
+

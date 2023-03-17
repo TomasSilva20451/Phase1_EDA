@@ -5,15 +5,22 @@
 
 #define PRICE 0.25
 
-struct electric_mobility_t
+/*struct electric_mobility_t
 {
     int battery_level;
-};
+};*/
 
-ElectricMobility *create_electric_mobility(int battery_level)
+ElectricMobility *create_electric_mobility(int id, char *name, float price, int stock, float rent, float autonomy, int battery_level)
 {
-    ElectricMobility *em = (ElectricMobility *)malloc(sizeof(ElectricMobility));
+    ElectricMobility *em = malloc(sizeof(struct ElectricMobilit *));
+    em->id = id;
+    strcpy(em->name, name);
+    em->price = price;
+    em->stock = stock;
+    em->rent = rent;
+    em->autonomy = autonomy;
     em->battery_level = battery_level;
+
     return em;
 }
 
