@@ -20,7 +20,16 @@ void save_electric_mobility_to_file(ElectricMobility *em);
 
 ElectricMobility *find_electric_mobility_by_id(int id)
 {
-    // implementação da função para retornar um ponteiro para a estrutura ElectricMobility
+    ElectricMobility *em = electric_mobility_list;
+    while (em != NULL)
+    {
+        if (em->id == id && em->available)
+        {
+            return em;
+        }
+        em = em->next;
+    }
+    return NULL;
 }
 
 int rent_electric_mobility(char *nif, int id, int duration)
