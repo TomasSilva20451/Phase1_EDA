@@ -5,6 +5,9 @@
 #include "electric_mobility.h"
 #include "rental.h"
 
+void save_rental_to_file(Rental *rental);
+void save_electric_mobility_to_file(ElectricMobility *em);
+
 ElectricMobility *find_electric_mobility_by_id(int id)
 {
     // implementação da função para retornar um ponteiro para a estrutura ElectricMobility
@@ -37,17 +40,22 @@ int rent_electric_mobility(char *nif, int id, int duration)
         printf("A duração máxima permitida do aluguel é de %d horas\n", em->max_rental_duration);
         return 4;
     }
-    else if (em->battery_level < em->battery_level_per_hour * duration)
+    else if (em->battery_level < em->battery_level_per_minute * duration)
     {
         printf("O veículo elétrico não tem carga suficiente para a duração solicitada do aluguel\n");
         return 5;
     }
 
-    Rental rental = {nif, id, duration, rental_cost};
+    Rental rental;
+    rental.nif = nif;
+    rental.id = id;
+    rental.duration = duration;
+    rental.rental_cost = rental_cost;
+
     save_rental_to_file(&rental);
 
     em->available = 0;
-    em->battery_level -= em->battery_level_per_hour * duration;
+    em->battery_level -= em->battery_level_per_minute * duration;
     save_electric_mobility_to_file(em);
 
     printf("Veículo elétrico com ID %d alugado para o cliente com NIF %s por %d horas. Custo total: %d euros\n", id, nif, duration, rental_cost);
