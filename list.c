@@ -3,31 +3,39 @@
 #include "list.h"
 
 /* Função para criar um novo nó */
-struct node *create_node(void *data) {
-    struct node *new_node = (struct node *) malloc(sizeof(struct node));
+struct node *create_node(void *data)
+{
+    struct node *new_node = (struct node *)malloc(sizeof(struct node));
     new_node->data = data;
     new_node->next = NULL;
     return new_node;
 }
 
 /* Função para inserir um novo nó no início da lista */
-void insert_node(struct node **head, struct node *new_node) {
-    new_node->next = *head;
-    *head = new_node;
+void insert_node(struct list *list, void *data)
+{
+    struct node *new_node = create_node(data);
+    new_node->next = list->head;
+    list->head = new_node;
+    list->size++;
 }
 
 /* Função para remover um nó da lista */
-void remove_node(struct node **head, struct node *node_to_remove) {
-    if (*head == node_to_remove) {
+void remove_node(struct node **head, struct node *node_to_remove)
+{
+    if (*head == node_to_remove)
+    {
         *head = node_to_remove->next;
         free(node_to_remove);
         return;
     }
     struct node *current = *head;
-    while (current != NULL && current->next != node_to_remove) {
+    while (current != NULL && current->next != node_to_remove)
+    {
         current = current->next;
     }
-    if (current == NULL) {
+    if (current == NULL)
+    {
         return;
     }
     current->next = node_to_remove->next;
@@ -35,10 +43,13 @@ void remove_node(struct node **head, struct node *node_to_remove) {
 }
 
 /* Função para encontrar um nó na lista */
-struct node *find_node(struct node *head, void *data_to_find, int (*cmp)(void *, void *)) {
+struct node *find_node(struct node *head, void *data_to_find, int (*cmp)(void *, void *))
+{
     struct node *current = head;
-    while (current != NULL) {
-        if (cmp(current->data, data_to_find) == 0) {
+    while (current != NULL)
+    {
+        if (cmp(current->data, data_to_find) == 0)
+        {
             return current;
         }
         current = current->next;
@@ -47,18 +58,22 @@ struct node *find_node(struct node *head, void *data_to_find, int (*cmp)(void *,
 }
 
 /* Função para percorrer a lista */
-void traverse_list(struct node *head, void (*fptr)(void *)) {
+void traverse_list(struct node *head, void (*fptr)(void *))
+{
     struct node *current = head;
-    while (current != NULL) {
+    while (current != NULL)
+    {
         fptr(current->data);
         current = current->next;
     }
 }
 
 /* Função para libertar a memória alocada para a lista */
-void free_list(struct node **head, void (*free_data)(void *)) {
+void free_list(struct node **head, void (*free_data)(void *))
+{
     struct node *current = *head;
-    while (current != NULL) {
+    while (current != NULL)
+    {
         struct node *next_node = current->next;
         free_data(current->data);
         free(current);
@@ -66,4 +81,3 @@ void free_list(struct node **head, void (*free_data)(void *)) {
     }
     *head = NULL;
 }
-
