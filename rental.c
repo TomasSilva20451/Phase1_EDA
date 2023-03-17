@@ -12,6 +12,7 @@ typedef struct
     int id;
     int duration;
     int rental_cost;
+    time_t timestamp;
 } Rental;
 
 void save_rental_to_file(Rental *rental);
@@ -36,7 +37,7 @@ int rent_electric_mobility(char *nif, int id, int duration)
         return 2;
     }
 
-    int rental_cost = duration * em->price_per_hour;
+    int rental_cost = duration * em->price;
 
     if (duration <= 0)
     {
@@ -55,10 +56,11 @@ int rent_electric_mobility(char *nif, int id, int duration)
     }
 
     Rental rental;
-    rental.nif = nif;
+    rental.nif = strdup(nif);
     rental.id = id;
     rental.duration = duration;
     rental.rental_cost = rental_cost;
+    rental.timestamp = time(NULL);
 
     save_rental_to_file(&rental);
 

@@ -12,7 +12,8 @@ typedef struct electric_mobility
     float rent;
     float autonomy;
     int battery_level;
-    struct electricMobility *next;
+    int max_rental_duration; // novo membro adicionado
+    struct electric_mobility *next;
 } ElectricMobility;
 
 ElectricMobility *create_electric_mobility(int id, char *name, float price, int stock, float rent, float autonomy, int battery_level);
