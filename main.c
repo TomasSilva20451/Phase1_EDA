@@ -9,6 +9,27 @@
 #include "rental.h"
 #include "list.h"
 
+void load_client_data_from_file(const char *filename);
+void load_electric_mobility_data_from_file(const char *filename);
+void add_client(char *name, char *email, int phone_number, int nif);
+void list_clients(void);
+void add_new_electric_mobility(char *manufacturer, char *model, char *license_plate, int autonomy, int charging_time, float hourly_price, char *location);
+void list_electric_mobility(void);
+void remove_electric_mobility(char *license_plate);
+void list_electric_mobility_by_location(char *location);
+void list_electric_mobility_by_autonomy(void);
+void update_client_data(int nif, char *new_email, char *new_phone_number);
+void register_rental(int nif, char *license_plate, char *start_date, char *start_time, int duration);
+void list_electric_mobility_by_autonomy_and_location(char *location);
+void remove_manager(char *email);
+void remove_client(char *nif);
+void remove_manager(char *email);
+void remove_client(char *nif);
+void list_managers(void);
+void remove_client(char nif[]);
+void save_client_data_to_file(const char *file_name);
+void save_electric_mobility_data_to_file(char *filename);
+
 int main()
 {
     int option;
@@ -53,7 +74,8 @@ int main()
             fgets(phone_number, 20, stdin);
             printf("NIF: ");
             fgets(nif, 10, stdin);
-            add_client(name, email, phone_number, nif);
+
+            add_client(name, email, atoi(phone_number), atoi(nif));
             break;
         }
         case 2:
@@ -113,16 +135,21 @@ int main()
         }
         case 8:
         {
-            char name[100], email[100], phone_number[20], password[100];
+            char name[100], email[100], password[100];
+            char phone_number_str[20];
+            // float phone_number_float = atof(phone_number);
+
             printf("Nome: ");
             fgets(name, 100, stdin);
             printf("E-mail: ");
             fgets(email, 100, stdin);
             printf("Número de telefone: ");
-            fgets(phone_number, 20, stdin);
+            snprintf(phone_number_str, sizeof(phone_number_str), "%.2s", phone_number_str);
             printf("Password: ");
             fgets(password, 100, stdin);
-            add_manager(name, email, phone_number, password);
+
+            add_manager(name, email, phone_number_str, password);
+
             break;
         }
         case 9:

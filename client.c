@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
+#include <string.h> 
 #include "client.h"
 
 struct client *clients_head = NULL;
