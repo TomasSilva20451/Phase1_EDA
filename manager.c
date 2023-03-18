@@ -8,7 +8,7 @@
 
 struct manager *manager_list = NULL;
 
-void add_manager(char *email, char *name, char *password, float salary);
+void add_manager(char *email, char *name, char *password, int phone_number);
 
 void load_manager_data_from_file(char *filename)
 {
@@ -47,7 +47,7 @@ void load_manager_data_from_file(char *filename)
     printf("Manager data loaded from file: %s\n", filename);
 }
 
-void add_manager(char *email, char *name, char *password, float salary)
+void add_manager(char *email, char *name, char *password, int phone_number)
 {
     struct manager *new_manager = (struct manager *)malloc(sizeof(struct manager));
     if (new_manager == NULL)
@@ -63,8 +63,9 @@ void add_manager(char *email, char *name, char *password, float salary)
     new_manager->autonomy = 0;
     new_manager->battery_level = 0;
     new_manager->cost = 0;
+    new_manager->phone_number = phone_number;
     strcpy(new_manager->description, "");
-    new_manager->salary = salary;
+    //new_manager->salary = salary;
     new_manager->next = NULL;
     if (manager_list == NULL)
     {

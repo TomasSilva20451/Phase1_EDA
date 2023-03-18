@@ -23,9 +23,9 @@ void save_electric_mobility_to_file(ElectricMobility *em)
     fclose(fp);
 }
 
-ElectricMobility *find_electric_mobility_by_id(int id)
+ElectricMobility *find_electric_mobility_by_id(ElectricMobility *electric_mobility_list,int id)
 {
-    FILE *fp = fopen("electric_mobility.dat", "rb");
+    FILE *fp = fopen("electric_mobility.dat", "rb"); 
     ElectricMobility *em;
 
     while ((em = read_electric_mobility_from_file(fp)) != NULL)
