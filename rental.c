@@ -18,12 +18,12 @@ typedef struct
 void save_rental_to_file(Rental *rental);
 void save_electric_mobility_to_file(ElectricMobility *em);
 
-ElectricMobility *find_electric_mobility_by_id(int id)
+ElectricMobility *find_electric_mobility_by_id(ElectricMobility *electric_mobility_list,int id)
 {
     ElectricMobility *em = electric_mobility_list;
     while (em != NULL)
     {
-        if (em->id == id && em->available)
+        if (em->id == id)
         {
             return em;
         }
@@ -32,15 +32,15 @@ ElectricMobility *find_electric_mobility_by_id(int id)
     return NULL;
 }
 
-int rent_electric_mobility(char *nif, int id, int duration)
+int rent_electric_mobility(ElectricMobility *electric_mobility_list ,char *nif, int id, int duration)
 {
-    ElectricMobility *em = find_electric_mobility_by_id(id);
+    ElectricMobility *em = find_electric_mobility_by_id(electric_mobility_list, id);
     if (em == NULL)
     {
         printf("Veículo elétrico com ID %d não encontrado\n", id);
         return 1;
     }
-    if (!em->available)
+    else
     {
         printf("Veículo elétrico com ID %d não está disponível para aluguel\n", id);
         return 2;
@@ -73,7 +73,7 @@ int rent_electric_mobility(char *nif, int id, int duration)
 
     save_rental_to_file(&rental);
 
-    em->available = 0;
+    //em->available = 0; -- Caso seja necessario guardar o estado
     em->battery_level -= em->battery_level_per_minute * duration;
     save_electric_mobility_to_file(em);
 
