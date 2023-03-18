@@ -11,7 +11,7 @@
 
 // void load_client_data_from_file(const char *filename);
 // void load_electric_mobility_data_from_file(const char *filename);
-void add_client(char *name, char *email, int phone_number, int nif);
+// void add_client(char *name, char *email, int phone_number, int nif);
 void list_clients(void);
 // void add_new_electric_mobility(char *manufacturer, char *model, char *license_plate, int autonomy, int charging_time, float hourly_price, char *location);
 // void list_electric_mobility(void);
@@ -76,6 +76,8 @@ int main()
             fgets(phone_number, 20, stdin);
             printf("NIF: ");
             fgets(nif, 10, stdin);
+
+            add_client(name, atoi(phone_number), email, atoi(nif));
 
             // add_client(name, email, atoi(phone_number), atoi(nif));
             break;
@@ -243,8 +245,8 @@ int main()
         }
         case 0:
         {
-    // save_client_data_to_file("client.bin");
-    // save_electric_mobility_data_to_file("electric_mobility.bin");
+            // save_client_data_to_file("client.bin");
+            // save_electric_mobility_data_to_file("electric_mobility.bin");
             // save_manager_data_to_file("manager.bin");
             printf("A sair...\n");
             break;

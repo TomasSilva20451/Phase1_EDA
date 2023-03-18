@@ -5,35 +5,59 @@
 
 struct client *clients_head = NULL;
 
-void add_client(char *name, char *email, int phone_number, int nif)
+void add_client(char *name, int phone_number, char *email, int nif)
 {
-    int aux = phone_number;
+    struct client *new_client = malloc(sizeof(struct client));
+    if (new_client == NULL)
+    {
+        printf("Erro ao alocar memória para novo cliente\n");
+        return;
+    }
+    strcpy(new_client->name, name);
+    new_client->phone_number = phone_number;
+    strcpy(new_client->email, email);
+    new_client->nif = nif;
+    new_client->next = NULL;
+    if (clients_head == NULL)
+    {
+        clients_head = new_client;
+        return;
+    }
 
-    struct client *new_node = malloc(sizeof(struct client));
-    strncpy(new_node->name, name, MAX_NAME_LENGTH - 1);
-    // new_node->name[MAX_NAME_LENGTH - 1] = '\0';
-    strncpy(new_node->email, email, MAX_EMAIL - 1);
-    // new_node->email[MAX_EMAIL - 1] = '\0';
-    new_node->phone_number = aux;
-    // new_node->phone_number[MAX_PHONE_NUMBER_LENGTH - 1] = '\0';
-    new_node->nif = nif;
-    // new_node->nif[MAX_NIF_LENGTH - 1] = '\0';
-    new_node->next = NULL;
+    struct client *current = clients_head;
+    while (current->next != NULL)
+    {
+        current = current->next;
+    }
+    current->next = new_client;
+}
+
+/*
+void add_client(char *name, int phone_number, char *email, int nif)
+{
+    struct client *new_client = (struct client*) malloc(sizeof(struct client));
+    strcpy(new_client->name, name);
+    //strcpy(new_client->address, address);
+    //new_client->age = age;
+    new_client->phone_number = phone_number;
+    strcpy(new_client->email, email);
+    new_client->nif = nif;
+    new_client->next = NULL;
 
     if (clients_head == NULL)
     {
-        clients_head = new_node;
+        clients_head = new_client;
+        return;
     }
-    else
+
+    struct client *current = clients_head;
+    while (current->next != NULL)
     {
-        struct client *current = clients_head;
-        while (current->next != NULL)
-        {
-            current = current->next;
-        }
-        current->next = new_node;
+        current = current->next;
     }
+    current->next = new_client;
 }
+*/
 
 void remove_client(int nif)
 {
@@ -67,7 +91,8 @@ void list_clients()
     {
         printf("Name: %s\n", current->name);
         printf("Email: %s\n", current->email);
-        printf("Phone number: %d\n", current->phone_number);
+       printf("Phone number: %d\n", current->phone_number);
+
         printf("NIF: %d\n", current->nif);
         printf("\n");
         current = current->next;
@@ -98,7 +123,7 @@ Client *load_clients(char *filename)
         fread(nif, MAX_NIF_LENGTH - 1, 1, fp);
         nif[MAX_NIF_LENGTH - 1] = '\0';
 
-        add_client(name, email, atoi(phone_number), atoi(nif));
+        // add_client(name, email, atoi(phone_number), atoi(nif));
     }
 
     fclose(fp);
@@ -121,4 +146,7 @@ Client *load_clients(char *filename)
 
     fclose(outfile);
     printf("Saved %d clients to %s\n", num_clients, filename);
-}*/
+
+    fclose(outfile);
+    printf("Saved %d clients to %s\n", num_clients, filename);
+    }*/
