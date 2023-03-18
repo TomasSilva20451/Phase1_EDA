@@ -6,10 +6,7 @@
 
 #define PRICE 0.25
 
-/*struct electric_mobility_t
-{
-    int battery_level;
-};*/
+// create_electric_mobility
 ElectricMobility *create_electric_mobility(int id, char *name, float price, int stock, float rent, float autonomy, int battery_level, int max_rental_duration, int battery_level_per_minute)
 {
     ElectricMobility *em = malloc(sizeof(ElectricMobility));
@@ -33,12 +30,13 @@ ElectricMobility *create_electric_mobility(int id, char *name, float price, int 
     return em;
 }
 
-
+/*
 void charge(ElectricMobility *em)
 {
     em->battery_level = 100;
     printf("Battery charged to 100%%\n");
 }
+*/
 
 /*
 void ride(ElectricMobility *em, Client *client, int distance)
@@ -67,19 +65,21 @@ void ride(ElectricMobility *em, Client *client, int distance)
 }
 */
 
+
 void destroy_electric_mobility(ElectricMobility *em)
 {
     free(em);
 }
-
-void print_electric_mobility(ElectricMobility *em)
-{
-
+/*
+void print_electric_mobility(ElectricMobility *em) {
     printf("ID: %d\n", em->id);
-    printf("name: %s\n", em->name);
-    printf("price: %f €\n", em->price);
-    printf("stock: %d\n", em->stock);
-    printf("rent: %f\n", em->rent);
-    printf("autonomy: %f km\n", em->autonomy);
-    printf("battery_level: %d\n", em->battery_level);
+    printf("Name: %s", em->name);
+    printf("Price: %.2f\n", em->price);
+    printf("Stock: %d\n", em->stock);
+    printf("Rent: %.2f\n", em->rent);
+    printf("Autonomy: %.2f km\n", em->autonomy);
+    printf("Battery Level: %d%%\n", em->battery_level);
+    printf("Max Rental Duration: %d hours\n", em->max_rental_duration);
+    printf("Battery Level per Minute: %d%%\n", em->battery_level_per_minute);
 }
+*/

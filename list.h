@@ -34,4 +34,6 @@ int get_list_size(struct list *list);
 
 /* Busca um nó na lista pelo índice */
 struct node *get_node_by_index(struct list *list, int index);
+
+
 #endif /* LIST_H */

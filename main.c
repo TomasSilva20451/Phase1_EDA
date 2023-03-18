@@ -8,13 +8,15 @@
 #include "utils.h"
 #include "rental.h"
 #include "list.h"
+/* Declare function prototype */
 
 // void load_client_data_from_file(const char *filename);
 // void load_electric_mobility_data_from_file(const char *filename);
 // void add_client(char *name, char *email, int phone_number, int nif);
 void list_clients(void);
+
+//void print_electric_mobility(int em);
 // void add_new_electric_mobility(char *manufacturer, char *model, char *license_plate, int autonomy, int charging_time, float hourly_price, char *location);
-// void list_electric_mobility(void);
 // void remove_electric_mobility(char *license_plate);
 // void list_electric_mobility_by_location(char *location);
 // void list_electric_mobility_by_autonomy(void);
@@ -87,7 +89,7 @@ int main()
             list_clients();
             break;
         }
-        case 3:
+       case 3:
         {
             int id, stock, battery_level, max_rental_duration, battery_level_per_minute;
             char name[100];
@@ -119,16 +121,17 @@ int main()
             scanf("%d", &battery_level_per_minute);
             getchar();
 
-            ElectricMobility *em = create_electric_mobility(id, name, price, stock, rent, autonomy, battery_level, max_rental_duration, battery_level_per_minute);
-            /
+            /*ElectricMobility *em = create_electric_mobility(id, name, price, stock, rent, autonomy, battery_level, max_rental_duration, battery_level_per_minute);
+            print_electric_mobility(em);*/
+
+            break;
+        }
+        case 4:
+        {
+            // print eletric mobility
             break;
         }
 
-        case 4:
-        {
-            // list_electric_mobility();
-            break;
-        }
         case 5:
         {
             char license_plate[10];

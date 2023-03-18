@@ -104,6 +104,8 @@ Client *load_clients(char *filename)
     fclose(fp);
     return clients_head;
 }
+
+
 /*void save_clients(char *filename)
 {
     FILE *outfile = fopen(filename, "w");
