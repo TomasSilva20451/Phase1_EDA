@@ -38,10 +38,10 @@ void load_manager_data_from_file(char *filename)
     char description[MAX_MANAGER_DESCRIPTION_LENGTH];
     float salary;
 
-    while (fscanf(file, "%s %s %s %s %s %f %f %f %s %f", email, name, password, type, location_geocode, &autonomy, &battery_level, &cost, description, &salary) == 10)
+    /*while (fscanf(file, "%s %s %s %s %s %f %f %f %s %f", email, name, password, type, location_geocode, &autonomy, &battery_level, &cost, description, &salary) == 10)
     {
         update_manager_info(email, name, password, type, location_geocode, autonomy, battery_level, cost, description);
-    }
+    }*/
 
     fclose(file);
     printf("Manager data loaded from file: %s\n", filename);

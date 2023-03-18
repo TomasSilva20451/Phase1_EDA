@@ -9,34 +9,35 @@
 #include "rental.h"
 #include "list.h"
 
-void load_client_data_from_file(const char *filename);
-void load_electric_mobility_data_from_file(const char *filename);
+// void load_client_data_from_file(const char *filename);
+// void load_electric_mobility_data_from_file(const char *filename);
 void add_client(char *name, char *email, int phone_number, int nif);
 void list_clients(void);
-void add_new_electric_mobility(char *manufacturer, char *model, char *license_plate, int autonomy, int charging_time, float hourly_price, char *location);
-void list_electric_mobility(void);
-void remove_electric_mobility(char *license_plate);
-void list_electric_mobility_by_location(char *location);
-void list_electric_mobility_by_autonomy(void);
-void update_client_data(int nif, char *new_email, char *new_phone_number);
-void register_rental(int nif, char *license_plate, char *start_date, char *start_time, int duration);
-void list_electric_mobility_by_autonomy_and_location(char *location);
-void remove_manager(char *email);
-void remove_client(char *nif);
-void remove_manager(char *email);
-void remove_client(char *nif);
-void list_managers(void);
-void remove_client(char nif[]);
+// void add_new_electric_mobility(char *manufacturer, char *model, char *license_plate, int autonomy, int charging_time, float hourly_price, char *location);
+// void list_electric_mobility(void);
+// void remove_electric_mobility(char *license_plate);
+// void list_electric_mobility_by_location(char *location);
+// void list_electric_mobility_by_autonomy(void);
+// void update_client_data(int nif, char *new_email, char *new_phone_number);
+// void register_rental(int nif, char *license_plate, char *start_date, char *start_time, int duration);
+// void list_electric_mobility_by_autonomy_and_location(char *location);
+// void remove_manager(char *email);
+// void remove_client(char *nif);
+// void remove_manager(char *email);
+// void remove_client(char *nif);
+// void list_managers(void);
+// void remove_client(char nif[]);
 void save_client_data_to_file(const char *file_name);
-void save_electric_mobility_data_to_file(char *filename);
+// void save_electric_mobility_data_to_file(char *filename);
+//void read_electric_mobility_file(char *filename);
 
 int main()
 {
     int option;
 
-    load_client_data_from_file("client.bin");
-    load_electric_mobility_data_from_file("electric_mobility.bin");
-    load_manager_data_from_file("manager.bin");
+    // load_client_data_from_file("client.bin");
+    //read_electric_mobility_file("electric_mobility.bin");
+    //load_manager_data_from_file("manager.bin");
 
     do
     {
@@ -75,12 +76,12 @@ int main()
             printf("NIF: ");
             fgets(nif, 10, stdin);
 
-            add_client(name, email, atoi(phone_number), atoi(nif));
+            //add_client(name, email, atoi(phone_number), atoi(nif));
             break;
         }
         case 2:
         {
-            list_clients();
+            //list_clients();
             break;
         }
         case 3:
@@ -104,12 +105,12 @@ int main()
             getchar();
             printf("Localização: ");
             fgets(location, 100, stdin);
-            add_new_electric_mobility(manufacturer, model, license_plate, autonomy, charging_time, hourly_price, location);
+            // add_new_electric_mobility(manufacturer, model, license_plate, autonomy, charging_time, hourly_price, location);
             break;
         }
         case 4:
         {
-            list_electric_mobility();
+            // list_electric_mobility();
             break;
         }
         case 5:
@@ -117,7 +118,7 @@ int main()
             char license_plate[10];
             printf("Matrícula do veículo a remover: ");
             fgets(license_plate, 10, stdin);
-            remove_electric_mobility(license_plate);
+            // remove_electric_mobility(license_plate);
             break;
         }
         case 6:
@@ -125,12 +126,12 @@ int main()
             char location[100];
             printf("Localização dos veículos: ");
             fgets(location, 100, stdin);
-            list_electric_mobility_by_location(location);
+            // list_electric_mobility_by_location(location);
             break;
         }
         case 7:
         {
-            list_electric_mobility_by_autonomy();
+            // list_electric_mobility_by_autonomy();
             break;
         }
         case 8:
@@ -153,8 +154,10 @@ int main()
              snprintf(phone_number_str, 20, "%.2f", phone_number_float);
              add_manager(name, email, phone_number_str, password);
  */ char name[100], email[100], password[100];
-            char* phone_number_char;
-            int phone_number_int;
+            // char *phone_number_char;
+           // char *phone_number_char = calloc(20, sizeof(char));
+
+           // int phone_number_int = 0;
             
 
             printf("Nome: ");
@@ -162,91 +165,94 @@ int main()
             printf("E-mail: ");
             fgets(email, 100, stdin);
             printf("Número de telefone: ");
-            fgets(phone_number_char, 20, stdin);
-            phone_number_int = atoi(phone_number_char);
-            //phone_number_float = atof(phone_number_str);
+            /* fgets(phone_number_char, 20, stdin);
+             phone_number_int = atoi(phone_number_char);*/
+            //fgets(phone_number_char, 20, stdin);
+            // phone_number_char[strcspn(phone_number_char, "\n")] = '\0';
+
             printf("Password: ");
-            fgets(password, 100, stdin);
+fgets(password, 100, stdin);
 
-            add_manager(email, name, password, phone_number_int);
+//add_manager(email, name, password, phone_number_int);
 
-            break;
+break;
         }
         case 9:
         {
-            char nif_str[10], new_email[100], new_phone_number[20];
-            int nif;
-            printf("NIF do cliente a alterar: ");
-            fgets(nif_str, 10, stdin);
-            nif = atoi(nif_str);
-            printf("Novo e-mail: ");
-            fgets(new_email, 100, stdin);
-            printf("Novo número de telefone: ");
-            fgets(new_phone_number, 20, stdin);
-            update_client_data(nif, new_email, new_phone_number);
-            break;
+char  new_email[100], new_phone_number[20];
+// char nif_str[10];
+// int nif;
+/*printf("NIF do cliente a alterar: ");
+fgets(nif_str, 10, stdin);*/
+// nif = atoi(nif_str);
+printf("Novo e-mail: ");
+fgets(new_email, 100, stdin);
+printf("Novo número de telefone: ");
+fgets(new_phone_number, 20, stdin);
+// update_client_data(nif, new_email, new_phone_number);
+break;
         }
         case 10:
         {
-            char nif[10];
-            printf("NIF do cliente a remover: ");
-            fgets(nif, 10, stdin);
-            remove_client(nif);
-            break;
+char nif[10];
+printf("NIF do cliente a remover: ");
+fgets(nif, 10, stdin);
+// remove_client(nif);
+break;
         }
         case 11:
         {
-            char nif[10], license_plate[10], start_date[20], start_time[20];
-            int duration;
+char nif[10], license_plate[10], start_date[20], start_time[20];
+int duration;
 
-            printf("NIF do cliente: ");
-            fgets(nif, 10, stdin);
-            int nif_as_int = atoi(nif); // Converter nif para inteiro
-            printf("Matrícula do veículo: ");
-            fgets(license_plate, 10, stdin);
-            printf("Data de início (dd/mm/aaaa): ");
-            fgets(start_date, 20, stdin);
-            printf("Hora de início (hh:mm): ");
-            fgets(start_time, 20, stdin);
-            printf("Duração do aluguer (em minutos): ");
-            scanf("%d", &duration);
-            getchar();
-            register_rental(nif_as_int, license_plate, start_date, start_time, duration); // Passar nif convertido para inteiro
-            break;
+printf("NIF do cliente: ");
+fgets(nif, 10, stdin);
+// int nif_as_int = atoi(nif); // Converter nif para inteiro
+printf("Matrícula do veículo: ");
+fgets(license_plate, 10, stdin);
+printf("Data de início (dd/mm/aaaa): ");
+fgets(start_date, 20, stdin);
+printf("Hora de início (hh:mm): ");
+fgets(start_time, 20, stdin);
+printf("Duração do aluguer (em minutos): ");
+scanf("%d", &duration);
+getchar();
+// register_rental(nif_as_int, license_plate, start_date, start_time, duration); // Passar nif convertido para inteiro
+break;
         }
         case 12:
         {
-            char location[100];
-            printf("Localização dos veículos: ");
-            fgets(location, 100, stdin);
-            list_electric_mobility_by_autonomy_and_location(location);
-            break;
+char location[100];
+printf("Localização dos veículos: ");
+fgets(location, 100, stdin);
+// list_electric_mobility_by_autonomy_and_location(location);
+break;
         }
         case 13:
         {
-            char email[100];
-            printf("E-mail do gestor a remover: ");
-            fgets(email, 100, stdin);
-            remove_manager(email);
-            break;
+char email[100];
+printf("E-mail do gestor a remover: ");
+fgets(email, 100, stdin);
+// remove_manager(email);
+break;
         }
         case 14:
         {
-            list_managers();
-            break;
+// list_managers();
+break;
         }
         case 0:
         {
-            save_client_data_to_file("client.bin");
-            save_electric_mobility_data_to_file("electric_mobility.bin");
-            save_manager_data_to_file("manager.bin");
-            printf("A sair...\n");
-            break;
+// save_client_data_to_file("client.bin");
+// save_electric_mobility_data_to_file("electric_mobility.bin");
+// save_manager_data_to_file("manager.bin");
+printf("A sair...\n");
+break;
         }
         default:
         {
-            printf("Opção inválida. Por favor, tente novamente.\n");
-            break;
+printf("Opção inválida. Por favor, tente novamente.\n");
+break;
         }
         }
     } while (option != 0);

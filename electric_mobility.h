@@ -6,7 +6,7 @@
 typedef struct electric_mobility
 {
     int id;
-    char name[30];
+    char *name;
     float price;
     int stock;
     float rent;

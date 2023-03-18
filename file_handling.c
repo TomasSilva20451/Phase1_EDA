@@ -9,7 +9,7 @@ void write_electric_mobility_to_file(FILE *fp, ElectricMobility *em)
     fwrite(em, sizeof(ElectricMobility), 1, fp);
 }
 
-ElectricMobility *read_electric_mobility_from_file(FILE *fp)
+ElectricMobility *read_electric_mobility_file(FILE *fp)
 {
     ElectricMobility *em = (ElectricMobility *)malloc(sizeof(ElectricMobility));
     fread(em, sizeof(ElectricMobility), 1, fp);
@@ -23,12 +23,12 @@ void save_electric_mobility_to_file(ElectricMobility *em)
     fclose(fp);
 }
 
-ElectricMobility *find_electric_mobility_by_id(ElectricMobility *electric_mobility_list,int id)
+/*ElectricMobility *find_electric_mobility_by_id(ElectricMobility *electric_mobility_list,int id)
 {
     FILE *fp = fopen("electric_mobility.dat", "rb"); 
     ElectricMobility *em;
 
-    while ((em = read_electric_mobility_from_file(fp)) != NULL)
+    while ((em = read_electric_mobility_file(fp)) != NULL)
     {
         if (em->id == id)
         {
@@ -39,7 +39,7 @@ ElectricMobility *find_electric_mobility_by_id(ElectricMobility *electric_mobili
 
     fclose(fp);
     return NULL;
-}
+}*/
 
 void delete_electric_mobility(int id)
 {
@@ -47,7 +47,7 @@ void delete_electric_mobility(int id)
     FILE *tmp = fopen("tmp.dat", "wb");
     ElectricMobility *em;
 
-    while ((em = read_electric_mobility_from_file(fp)) != NULL)
+    while ((em = read_electric_mobility_file(fp)) != NULL)
     {
         if (em->id != id)
         {

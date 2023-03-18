@@ -13,9 +13,16 @@
 
 ElectricMobility *create_electric_mobility(int id, char *name, float price, int stock, float rent, float autonomy, int battery_level)
 {
-    ElectricMobility *em = malloc(sizeof(struct ElectricMobilit *));
-    em->id = id;
-    strcpy(em->name, name);
+    ElectricMobility *em = malloc(sizeof(ElectricMobility));
+    if (em == NULL)
+    {
+        printf("Error: Could not allocate memory for ElectricMobility.\n");
+        exit(1);
+    }
+
+    em->name = malloc((strlen(name) + 1) * sizeof(char));
+
+
     em->price = price;
     em->stock = stock;
     em->rent = rent;

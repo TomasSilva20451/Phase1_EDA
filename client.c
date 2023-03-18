@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h> 
+#include <string.h>
 #include "client.h"
 
 struct client *clients_head = NULL;
@@ -9,7 +9,7 @@ void add_client(char *name, char *email, int phone_number, int nif)
 {
     int aux = phone_number;
 
-    struct client *new_node = malloc(sizeof(struct client *));
+    struct client *new_node = malloc(sizeof(struct client));
     strncpy(new_node->name, name, MAX_NAME_LENGTH - 1);
     // new_node->name[MAX_NAME_LENGTH - 1] = '\0';
     strncpy(new_node->email, email, MAX_EMAIL - 1);
