@@ -84,7 +84,7 @@ int main()
         }
         case 2:
         {
-            // list_clients();
+            list_clients();
             break;
         }
         case 3:

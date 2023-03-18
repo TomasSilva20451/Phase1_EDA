@@ -32,32 +32,20 @@ void add_client(char *name, int phone_number, char *email, int nif)
     current->next = new_client;
 }
 
-/*
-void add_client(char *name, int phone_number, char *email, int nif)
+
+void list_clients(char *name, int phone_number, char *email, int nif)
 {
-    struct client *new_client = (struct client*) malloc(sizeof(struct client));
-    strcpy(new_client->name, name);
-    //strcpy(new_client->address, address);
-    //new_client->age = age;
-    new_client->phone_number = phone_number;
-    strcpy(new_client->email, email);
-    new_client->nif = nif;
-    new_client->next = NULL;
-
-    if (clients_head == NULL)
-    {
-        clients_head = new_client;
-        return;
-    }
-
     struct client *current = clients_head;
-    while (current->next != NULL)
+    while (current != NULL)
     {
+        printf("Name: %s\n", current->name);
+        printf("Email: %s\n", current->email);
+        printf("Phone number: %d\n", current->phone_number);
+        printf("NIF: %d\n", current->nif);
+        printf("\n");
         current = current->next;
     }
-    current->next = new_client;
 }
-*/
 
 void remove_client(int nif)
 {
@@ -84,20 +72,6 @@ void remove_client(int nif)
     }
 }
 
-void list_clients()
-{
-    struct client *current = clients_head;
-    while (current != NULL)
-    {
-        printf("Name: %s\n", current->name);
-        printf("Email: %s\n", current->email);
-       printf("Phone number: %d\n", current->phone_number);
-
-        printf("NIF: %d\n", current->nif);
-        printf("\n");
-        current = current->next;
-    }
-}
 
 Client *load_clients(char *filename)
 {
