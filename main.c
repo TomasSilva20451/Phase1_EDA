@@ -89,28 +89,41 @@ int main()
         }
         case 3:
         {
-            char manufacturer[100], model[100], license_plate[10], location[100];
-            int autonomy, charging_time, hourly_price;
-            printf("Fabricante: ");
-            fgets(manufacturer, 100, stdin);
-            printf("Modelo: ");
-            fgets(model, 100, stdin);
-            printf("Matrícula: ");
-            fgets(license_plate, 10, stdin);
-            printf("Autonomia: ");
-            scanf("%d", &autonomy);
+            int id, stock, battery_level, max_rental_duration, battery_level_per_minute;
+            char name[100];
+            float price, rent, autonomy;
+            printf("ID: ");
+            scanf("%d", &id);
             getchar();
-            printf("Tempo de carregamento: ");
-            scanf("%d", &charging_time);
+            printf("Name: ");
+            fgets(name, 100, stdin);
+            printf("Price: ");
+            scanf("%f", &price);
             getchar();
-            printf("Preço por hora: ");
-            scanf("%d", &hourly_price);
+            printf("Stock: ");
+            scanf("%d", &stock);
             getchar();
-            printf("Localização: ");
-            fgets(location, 100, stdin);
-            // add_new_electric_mobility(manufacturer, model, license_plate, autonomy, charging_time, hourly_price, location);
+            printf("Rent: ");
+            scanf("%f", &rent);
+            getchar();
+            printf("Autonomy: ");
+            scanf("%f", &autonomy);
+            getchar();
+            printf("Battery Level: ");
+            scanf("%d", &battery_level);
+            getchar();
+            printf("Max Rental Duration: ");
+            scanf("%d", &max_rental_duration);
+            getchar();
+            printf("Battery Level per Minute: ");
+            scanf("%d", &battery_level_per_minute);
+            getchar();
+
+            ElectricMobility *em = create_electric_mobility(id, name, price, stock, rent, autonomy, battery_level, max_rental_duration, battery_level_per_minute);
+            /
             break;
         }
+
         case 4:
         {
             // list_electric_mobility();

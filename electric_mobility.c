@@ -10,8 +10,7 @@
 {
     int battery_level;
 };*/
-
-ElectricMobility *create_electric_mobility(int id, char *name, float price, int stock, float rent, float autonomy, int battery_level)
+ElectricMobility *create_electric_mobility(int id, char *name, float price, int stock, float rent, float autonomy, int battery_level, int max_rental_duration, int battery_level_per_minute)
 {
     ElectricMobility *em = malloc(sizeof(ElectricMobility));
     if (em == NULL)
@@ -20,17 +19,20 @@ ElectricMobility *create_electric_mobility(int id, char *name, float price, int 
         exit(1);
     }
 
+    em->id = id;
     em->name = malloc((strlen(name) + 1) * sizeof(char));
-
-
+    strcpy(em->name, name);
     em->price = price;
     em->stock = stock;
     em->rent = rent;
     em->autonomy = autonomy;
     em->battery_level = battery_level;
+    em->max_rental_duration = max_rental_duration;
+    em->battery_level_per_minute = battery_level_per_minute;
 
     return em;
 }
+
 
 void charge(ElectricMobility *em)
 {
@@ -81,47 +83,3 @@ void print_electric_mobility(ElectricMobility *em)
     printf("autonomy: %f km\n", em->autonomy);
     printf("battery_level: %d\n", em->battery_level);
 }
-
-/*
-ElectricMobility *create_electric_mobility(int id, char *name, float price, int stock, float rent, float autonomy, int battery_level)
-{
-    ElectricMobility *em = (ElectricMobility *)malloc(sizeof(ElectricMobility));
-    if (em == NULL)
-    {
-        printf("Error: Could not allocate memory for ElectricMobility.\n");
-        exit(1);
-    }
-
-    em->name = (char *)malloc((strlen(name) + 1) * sizeof(char));
-    if (em->name == NULL)
-    {
-        printf("Error: Could not allocate memory for ElectricMobility model.\n");
-        exit(1);
-    }
-    strcpy(em->name, name);
-
-    em->price = (float *)malloc((strlen(price) + 1) * sizeof(char));
-    if (em->price == NULL)
-    {
-        printf("Error: Could not allocate memory for ElectricMobility brand.\n");
-        exit(1);
-    }
-    strcpy(em->price, price);
-
-    em->color = (char *)malloc((strlen(color) + 1) * sizeof(char));
-    if (em->color == NULL)
-    {
-        printf("Error: Could not allocate memory for ElectricMobility color.\n");
-        exit(1);
-    }
-    strcpy(em->color, color);
-
-em->year = year;
-em->range = range;
-em->top_speed = top_speed;
-em->battery_capacity = battery_capacity;
-em->price = price;
-
-return em;
-}
-*/

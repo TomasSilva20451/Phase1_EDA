@@ -5,6 +5,7 @@
 
 struct client *clients_head = NULL;
 
+// add_client
 void add_client(char *name, int phone_number, char *email, int nif)
 {
     struct client *new_client = malloc(sizeof(struct client));
@@ -32,7 +33,7 @@ void add_client(char *name, int phone_number, char *email, int nif)
     current->next = new_client;
 }
 
-
+// list_clients 
 void list_clients(char *name, int phone_number, char *email, int nif)
 {
     struct client *current = clients_head;
