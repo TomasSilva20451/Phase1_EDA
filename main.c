@@ -9,7 +9,6 @@
 #include "rental.h"
 #include "list.h"
 
-
 /* Declare function prototype */
 
 // List
@@ -70,6 +69,9 @@ int main()
         case 1:
         {
 
+            /*The code snippet reads user input for the client's name, email, phone number, and NIF and then calls the add_client() function to add the client to the system. The add_client() function takes the client's name, phone number, email, and NIF as parameters and adds a new client to the system.
+
+            It seems that the phone number and NIF are being converted to integers using the atoi() function before being passed to the add_client() function. This might cause problems if the user enters non-numeric characters for these fields. It might be better to validate the user input before passing it to the add_client() function.*/
             char name[100], email[100], phone_number[20], nif[10];
             printf("Nome: ");
             fgets(name, 100, stdin);
@@ -86,11 +88,17 @@ int main()
         }
         case 2:
         {
+            // code is calling the function list_clients() to display a list of all the clients in the system.
             list_clients();
             break;
         }
         case 3:
         {
+            /*This code snippet is prompting the user to input values for the fields of a new electric mobility object, and then passing those values to the add_mobility() function to add the object to the list of electric mobilities.
+
+The fgets() function is being used to read in strings of characters from the standard input stream, and the atoi() and atof() functions are being used to convert those strings to their corresponding integer and float values, respectively.
+
+Overall, this code snippet is responsible for adding new electric mobility objects to the system.*/
             char id[100], name[100], license_plate[10], location[100], price[100], stock[100], rent[100], autonomy[100], battery_level[100];
 
             printf("ID: ");
@@ -118,12 +126,25 @@ int main()
         }
         case 4:
         {
+            /*This code is calling the function list_mobility() which lists all the electric mobility i
+            tems in the inventory. This is part of a larger program that likely has a menu or 
+            interface for managing an electric mobility rental service. By calling this function 
+            in response to user input (presumably selecting a menu option), the program displays 
+            the current inventory of electric mobility items to the user. The break; statement
+             is used to exit the current switch-case block and continue executing the rest of the program.*/
             list_mobility();
             break;
         }
 
         case 5:
         {
+            /*This code prompts the user to enter a license plate and then attempts to
+             remove the electric mobility with that license plate from the system 
+             by calling the remove_electric_mobility function. If the function call
+              returns a non-zero value, it indicates that the mobility was successfully 
+              removed, and the program prints a success message. If the function call returns
+               zero, it indicates that the mobility was not found or could not be removed,
+                and the program prints a failure message.*/
             char license_plate[10];
             printf("Matrícula do veículo a remover: ");
             fgets(license_plate, 10, stdin);
@@ -142,6 +163,8 @@ int main()
         }
         case 6:
         {
+
+            /*This code snippet prompts the user to input a location and then calls the list_electric_mobility_by_location function with the provided location as an argument. This function will then search the electric mobility linked list for all mobility items located in the specified location and print their details to the console. Finally, the break statement is used to exit the switch statement and return to the main menu.*/
             char location[100];
             printf("Localização dos veículos: ");
             fgets(location, 100, stdin);
@@ -150,12 +173,15 @@ int main()
         }
         case 7:
         {
+            /*This code snippet declares a pointer variable called head of type ElectricMobility and initializes it to NULL. Then, it calls the list_electric_mobility_by_autonomy function and passes the head variable as an argument. This function will iterate over all the electric mobility items in the linked list, calculate the total autonomy of each item, and print out the items sorted by their total autonomy. 
+            Finally, the break statement ends the current case and returns to the main menu.*/
             ElectricMobility *head = NULL;
             list_electric_mobility_by_autonomy(head);
             break;
         }
         case 8:
         {
+            /*This is a block of code that prompts the user to input information about a new manager, and then calls the function "add_manager" to add the manager to the system with the given information. The information collected includes the manager's name, email, password, job type, job description, salary, and phone number.*/
             char name[50], email[100], password[20], type[100], description[100], salary[100], phone_number[15];
             printf("Nome: ");
             fgets(name, 50, stdin);
@@ -178,6 +204,7 @@ int main()
         }
         case 9:
         {
+            /*This code prompts the user to enter the NIF (Portuguese tax identification number) of the client they want to update, as well as the new email and phone number for that client. It then calls the function update_client_data() with the provided parameters to update the client's information.*/
             char new_email[100], new_phone_number[20];
             char nif_str[10];
             int nif;
@@ -193,6 +220,7 @@ int main()
         }
         case 10:
         {
+            /*This code block prompts the user to input a client's NIF, then calls the remove_client function with the given NIF as a parameter to remove the client from the system. If the removal is successful, a message is printed to confirm it.*/
             int nif;
             printf("NIF do cliente a remover: ");
             scanf("%d", &nif);
@@ -227,6 +255,13 @@ int main()
         }
         case 0:
         {
+            /*The first line, save_client_data_to_file("client.bin"), is likely calling a function that saves client data to a file named "client.bin". The exact implementation of this function is not clear from the code snippet, but it could involve iterating over a list of client objects and writing each one's data to the file.
+
+The second line, save_electric_mobility_data_to_file("electric_mobility.bin"), is probably calling a similar function that saves data related to electric mobility (possibly vehicle information) to a file named "electric_mobility.bin".
+
+The third line, save_manager_data_to_file("manager.dat"), may be calling a function that saves data related to a manager or management system to a file named "manager.dat". Again, the exact implementation of this function is not clear from the code snippet.
+
+Overall, these three lines of code seem to be part of a larger program that involves storing and managing data related to clients, electric mobility, and management.*/
             save_client_data_to_file("client.bin");
             save_electric_mobility_data_to_file("electric_mobility.bin");
             save_manager_data_to_file("manager.dat");
