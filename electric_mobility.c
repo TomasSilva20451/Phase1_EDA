@@ -170,3 +170,83 @@ void list_electric_mobility_by_location(char *location)
         current = current->next;
     }
 }
+
+
+// Function to create a new node with given data
+ElectricMobility* newNode(int id, char* name, char* license_plate, char* location, 
+                          float price, int stock, float rent, float autonomy, int battery_level) {
+    ElectricMobility* new_node = (ElectricMobility*) malloc(sizeof(ElectricMobility));
+    new_node->id = id;
+    new_node->name = name;
+    new_node->license_plate = license_plate;
+    new_node->location = location;
+    new_node->price = price;
+    new_node->stock = stock;
+    new_node->rent = rent;
+    new_node->autonomy = autonomy;
+    new_node->battery_level = battery_level;
+    new_node->next = NULL;
+    return new_node;
+}
+
+// Function to insert a new node at the beginning of the linked list
+void push(ElectricMobility** head_ref, ElectricMobility* new_node) {
+    new_node->next = *head_ref;
+    *head_ref = new_node;
+}
+
+// Function to swap two nodes in the linked list
+void swapNodes(ElectricMobility** head_ref, ElectricMobility* prev_x, ElectricMobility* prev_y) {
+    ElectricMobility* temp = prev_y->next;
+    prev_y->next = prev_x->next;
+    prev_x->next = temp;
+    temp = prev_y->next->next;
+    prev_y->next->next = prev_x->next->next;
+    prev_x->next->next = temp;
+}
+
+// Function to sort the linked list by decreasing autonomy
+void sortByAutonomy(ElectricMobility** head_ref) {
+    if (*head_ref == NULL || (*head_ref)->next == NULL) {
+        return;
+    }
+    ElectricMobility* current = *head_ref;
+    ElectricMobility* prev = NULL;
+    while (current != NULL) {
+        ElectricMobility* max_node = current;
+        ElectricMobility* temp = current->next;
+        while (temp != NULL) {
+            if (temp->autonomy > max_node->autonomy) {
+                max_node = temp;
+            }
+            temp = temp->next;
+        }
+        if (current != max_node) {
+            swapNodes(head_ref, prev, max_node);
+            current = max_node;
+        }
+        prev = current;
+        current = current->next;
+    }
+}
+
+void list_electric_mobility_by_autonomy(ElectricMobility* head) {
+    sortByAutonomy(&head);
+    printf("Electric mobility list sorted by autonomy:\n");
+    printf("ID\tName\t\tLicense Plate\tLocation\tPrice\tStock\tRent\tAutonomy\tBattery Level\n");
+    printf("----------------------------------------------------------------------------------------\n");
+    ElectricMobility* current = head;
+    while (current != NULL) {
+        printf("%d\t%s\t%s\t%s\t%.2f\t%d\t%.2f\t%.2f\t%d\n", 
+        current->id, 
+        current->name,
+        current->license_plate, 
+        current->location, 
+        current->price, 
+        current->stock,
+        current->rent,
+        current->autonomy,
+        current->battery_level);
+        current = current->next;
+    }
+}

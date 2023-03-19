@@ -2,7 +2,6 @@
 #define CLIENT_H
 
 #define MAX_NAME_LENGTH 50
-#define MAX_ADDRESS_LENGTH 100
 #define MAX_ACCOUNTS 5
 #define MAX_EMAIL 50
 #define MAX_PHONE_NUMBER_LENGTH 15

@@ -18,6 +18,7 @@ void list_clients(void);
 int list_mobility();
 int remove_electric_mobility(char *license_plate);
 void list_electric_mobility_by_location(char* location) ;
+void list_electric_mobility_by_autonomy(ElectricMobility* head);
 // debug - fix this - void list_mobility(void);
 
 
@@ -154,48 +155,34 @@ int main()
         }
         case 7:
         {
-            // list_electric_mobility_by_autonomy();
+            ElectricMobility* head = NULL;
+            list_electric_mobility_by_autonomy(head);
             break;
         }
         case 8:
         {
-            /* char name[100], email[100], password[100];
-             char phone_number_str[20];
-             float phone_number_float;
-
-             printf("Nome: ");
-             fgets(name, 100, stdin);
-             printf("E-mail: ");
-             fgets(email, 100, stdin);
-             printf("Número de telefone: ");
-             fgets(phone_number_str, 20, stdin);
-             phone_number_float = atof(phone_number_str);
-             printf("Password: ");
-             fgets(password, 100, stdin);
-
-             char phone_number_str[20];
-             snprintf(phone_number_str, 20, "%.2f", phone_number_float);
-             add_manager(name, email, phone_number_str, password);
- */ char name[100], email[100], password[100];
-            // char *phone_number_char;
-            // char *phone_number_char = calloc(20, sizeof(char));
-
-            // int phone_number_int = 0;
-
+            char name[50], email[100], password[20],type[100],description[100],salary[100] ,phone_number[15];
             printf("Nome: ");
-            fgets(name, 100, stdin);
+            fgets(name, 50, stdin);
             printf("E-mail: ");
             fgets(email, 100, stdin);
+             printf("Password: ");
+            fgets(password, 20, stdin);
+             printf("Type: ");
+            fgets(type, 100, stdin);
+             printf("Description: ");
+            fgets(description, 100, stdin);
+             printf("Salary: ");
+            fgets(salary, 100, stdin);
             printf("Número de telefone: ");
-            /* fgets(phone_number_char, 20, stdin);
-             phone_number_int = atoi(phone_number_char);*/
-            // fgets(phone_number_char, 20, stdin);
-            //  phone_number_char[strcspn(phone_number_char, "\n")] = '\0';
+            fgets(phone_number, 15, stdin);
+            
+           
+           
 
-            printf("Password: ");
-            fgets(password, 100, stdin);
+            //add_manager(name, atoi(phone_number), email, atoi(nif));
 
-            // add_manager(email, name, password, phone_number_int);
+            
 
             break;
         }
