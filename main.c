@@ -28,7 +28,8 @@ void remove_client(int nif);
 void remove_manager(char *email);
 
 Client *load_clients(char *filename);
-void read_electric_mobility_file(char *filename);
+void read_electric_mobility_file(const char *filename);
+
 
 
 
@@ -57,7 +58,7 @@ int main()
     int option;
 
     Client *clients = load_clients("client.bin");
-    read_electric_mobility_file("electric_mobility.bin");
+    read_electric_mobility_file("electric_mobility.dat");
     load_manager_data_from_file("manager.bin");
 
     do

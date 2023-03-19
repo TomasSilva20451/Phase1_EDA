@@ -238,6 +238,7 @@ void sortByAutonomy(ElectricMobility **head_ref)
         current = current->next;
     }
 }
+
 // list_electric_mobility_by_autonomy
 void list_electric_mobility_by_autonomy(ElectricMobility *head)
 {
@@ -318,20 +319,21 @@ void list_electric_mobility_by_autonomy_and_location(char *location)
 }
 
 // read_electric_mobility_file
-void read_electric_mobility_file(char *filename)
-{
-    FILE *fp = fopen(filename, "rb");
-    if (fp == NULL)
-    {
-        printf("Error: Could not open file %s.\n", filename);
+void read_electric_mobility_file(const char *filename) {
+    FILE *fp;
+    if ((fp = fopen(filename, "rb")) == NULL) {
+        fprintf(stderr, "Error: Could not open file %s.\n", filename);
         return; // Return nothing to indicate failure
     }
 
     int count = 0;
     ElectricMobility em;
-    while (fread(&em, sizeof(ElectricMobility), 1, fp) == 1)
-    {
-        add_mobility(em.id, em.name, em.license_plate, em.location, em.price, em.stock, em.rent, em.autonomy, em.battery_level);
+    while (fread(&em, sizeof(ElectricMobility), 1, fp) == 1) {
+        if (add_mobility(em.id, em.name, em.license_plate, em.location, em.price, em.stock, em.rent, em.autonomy, em.battery_level) == 0) {
+            fprintf(stderr, "Error: Failed to add electric mobility.\n");
+            fclose(fp);
+            return; // Return nothing to indicate failure
+        }
         count++;
     }
 
@@ -339,6 +341,7 @@ void read_electric_mobility_file(char *filename)
 
     printf("Successfully read %d electric mobility from file %s.\n", count, filename);
 }
+
 
 // save_electric_mobility_data_to_file
 void save_electric_mobility_data_to_file(char *filename) {
