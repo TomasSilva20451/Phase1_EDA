@@ -124,15 +124,18 @@ Client *load_clients(char *filename)
 }
 
 // save_client_data_to_file
-void save_client_data_to_file(char *filename) {
+void save_client_data_to_file(char *filename)
+{
     FILE *fp = fopen(filename, "wb");
-    if (fp == NULL) {
+    if (fp == NULL)
+    {
         printf("Error opening file.\n");
         return;
     }
-    
+
     struct client *current = clients_head;
-    while (current != NULL) {
+    while (current != NULL)
+    {
         fwrite(current->name, MAX_NAME_LENGTH - 1, 1, fp);
         fwrite(current->email, MAX_EMAIL - 1, 1, fp);
         char phone_number[MAX_PHONE_NUMBER_LENGTH];
@@ -143,6 +146,6 @@ void save_client_data_to_file(char *filename) {
         fwrite(nif, MAX_NIF_LENGTH - 1, 1, fp);
         current = current->next;
     }
-    
+    printf("Client  data saved to file %s.\n", filename);
     fclose(fp);
 }
