@@ -122,3 +122,27 @@ Client *load_clients(char *filename)
     fclose(fp);
     return clients_head;
 }
+
+// save_client_data_to_file
+void save_client_data_to_file(char *filename) {
+    FILE *fp = fopen(filename, "wb");
+    if (fp == NULL) {
+        printf("Error opening file.\n");
+        return;
+    }
+    
+    struct client *current = clients_head;
+    while (current != NULL) {
+        fwrite(current->name, MAX_NAME_LENGTH - 1, 1, fp);
+        fwrite(current->email, MAX_EMAIL - 1, 1, fp);
+        char phone_number[MAX_PHONE_NUMBER_LENGTH];
+        snprintf(phone_number, MAX_PHONE_NUMBER_LENGTH, "%d", current->phone_number);
+        fwrite(phone_number, MAX_PHONE_NUMBER_LENGTH - 1, 1, fp);
+        char nif[MAX_NIF_LENGTH];
+        snprintf(nif, MAX_NIF_LENGTH, "%d", current->nif);
+        fwrite(nif, MAX_NIF_LENGTH - 1, 1, fp);
+        current = current->next;
+    }
+    
+    fclose(fp);
+}

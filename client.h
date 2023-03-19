@@ -18,6 +18,8 @@ typedef struct client
 extern struct client *clients_head;
 
 void add_client(char *name, int phone_number, char *email, int nif);
+
+void save_client_data_to_file(char *filename) ;
 /*
 typedef struct client {
     char name[MAX_NAME_LENGTH];
