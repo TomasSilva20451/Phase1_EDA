@@ -57,8 +57,7 @@ int main()
     int option;
 
     Client *clients = load_clients("client.bin");
-
-    // read_electric_mobility_file("electric_mobility.bin");
+    read_electric_mobility_file("electric_mobility.bin");
     // load_manager_data_from_file("manager.bin");
 
     do
