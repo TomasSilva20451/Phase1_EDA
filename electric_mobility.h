@@ -31,8 +31,10 @@ extern struct electric_mobility *mobility_head;
 
 
 int add_mobility(int id, char *name, char *license_plate, char *location, float price, int stock, float rent, float autonomy, int battery_level);
-
+void save_electric_mobility_data_to_file(char *filename);
 void destroy_electric_mobility(ElectricMobility *em);
+
+
 //float get_price_per_kwh(ElectricMobility *em);
 //void set_price_per_kwh(ElectricMobility *em, float price_per_kwh);
 //float calculate_price(ElectricMobility *em, Client *client, float kwh);

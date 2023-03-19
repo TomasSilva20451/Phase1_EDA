@@ -266,7 +266,7 @@ int main()
         case 0:
         {
             save_client_data_to_file("client.bin");
-            // save_electric_mobility_data_to_file("electric_mobility.bin");
+            save_electric_mobility_data_to_file("electric_mobility.bin");
             // save_manager_data_to_file("manager.bin");
             printf("A sair...\n");
             break;

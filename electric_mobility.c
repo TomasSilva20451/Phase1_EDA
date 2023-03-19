@@ -339,3 +339,21 @@ void read_electric_mobility_file(char *filename)
 
     printf("Successfully read %d electric mobility from file %s.\n", count, filename);
 }
+
+// save_electric_mobility_data_to_file
+void save_electric_mobility_data_to_file(char *filename) {
+    FILE *file = fopen(filename, "wb"); // Open file for writing in binary mode
+    if (file == NULL) {
+        printf("Error: Could not open file %s.\n", filename);
+        return;
+    }
+
+    struct electric_mobility *current_mobility = mobility_head;
+    while (current_mobility != NULL) {
+        fwrite(current_mobility, sizeof(struct electric_mobility), 1, file); // Write mobility data to file
+        current_mobility = current_mobility->next;
+    }
+
+    fclose(file);
+    printf("Electric mobility data saved to file %s.\n", filename);
+}
