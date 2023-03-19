@@ -13,7 +13,12 @@
 // void load_client_data_from_file(const char *filename);
 // void load_electric_mobility_data_from_file(const char *filename);
 // void add_client(char *name, char *email, int phone_number, int nif);
+
 void list_clients(void);
+int list_mobility();
+
+// debug - fix this - void list_mobility(void);
+
 
 //void print_electric_mobility(int em);
 // void add_new_electric_mobility(char *manufacturer, char *model, char *license_plate, int autonomy, int charging_time, float hourly_price, char *location);
@@ -81,7 +86,6 @@ int main()
 
             add_client(name, atoi(phone_number), email, atoi(nif));
 
-            // add_client(name, email, atoi(phone_number), atoi(nif));
             break;
         }
         case 2:
@@ -91,44 +95,32 @@ int main()
         }
        case 3:
         {
-            int id, stock, battery_level, max_rental_duration, battery_level_per_minute;
-            char name[100];
-            float price, rent, autonomy;
+            char id[100], name[100], price[100], stock[100], rent[100], autonomy[100], battery_level[100];
+
             printf("ID: ");
-            scanf("%d", &id);
-            getchar();
+            fgets(id, 100, stdin);
             printf("Name: ");
             fgets(name, 100, stdin);
             printf("Price: ");
-            scanf("%f", &price);
-            getchar();
+            fgets(price, 100, stdin);
             printf("Stock: ");
-            scanf("%d", &stock);
-            getchar();
+            fgets(stock, 100, stdin);
             printf("Rent: ");
-            scanf("%f", &rent);
-            getchar();
+            fgets(rent, 100, stdin);
             printf("Autonomy: ");
-            scanf("%f", &autonomy);
-            getchar();
+            fgets(autonomy, 100, stdin);
             printf("Battery Level: ");
-            scanf("%d", &battery_level);
-            getchar();
-            printf("Max Rental Duration: ");
-            scanf("%d", &max_rental_duration);
-            getchar();
-            printf("Battery Level per Minute: ");
-            scanf("%d", &battery_level_per_minute);
-            getchar();
+            fgets(battery_level, 100, stdin);
 
-            /*ElectricMobility *em = create_electric_mobility(id, name, price, stock, rent, autonomy, battery_level, max_rental_duration, battery_level_per_minute);
-            print_electric_mobility(em);*/
+            
+            add_mobility(atoi(id), name, atof(price), atoi(stock), atof(rent), atof(autonomy), atoi(battery_level));
+
 
             break;
         }
         case 4:
         {
-            // print eletric mobility
+            list_mobility();
             break;
         }
 

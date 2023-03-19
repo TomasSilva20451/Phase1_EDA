@@ -6,8 +6,10 @@
 
 #define PRICE 0.25
 
+struct electric_mobility *mobility_head = NULL;
+
 // create_electric_mobility
-ElectricMobility *create_electric_mobility(int id, char *name, float price, int stock, float rent, float autonomy, int battery_level, int max_rental_duration, int battery_level_per_minute)
+ElectricMobility *create_electric_mobility(int id, char *name, float price, int stock, float rent, float autonomy, int battery_level)
 {
     ElectricMobility *em = malloc(sizeof(ElectricMobility));
     if (em == NULL)
@@ -24,8 +26,6 @@ ElectricMobility *create_electric_mobility(int id, char *name, float price, int 
     em->rent = rent;
     em->autonomy = autonomy;
     em->battery_level = battery_level;
-    em->max_rental_duration = max_rental_duration;
-    em->battery_level_per_minute = battery_level_per_minute;
 
     return em;
 }
@@ -65,7 +65,6 @@ void ride(ElectricMobility *em, Client *client, int distance)
 }
 */
 
-
 void destroy_electric_mobility(ElectricMobility *em)
 {
     free(em);
@@ -83,3 +82,60 @@ void print_electric_mobility(ElectricMobility *em) {
     printf("Battery Level per Minute: %d%%\n", em->battery_level_per_minute);
 }
 */
+
+// add_mobility -int or void
+int add_mobility(int id, char *name, float price, int stock, float rent, float autonomy, int battery_level)
+{
+    struct electric_mobility *new_mobility = malloc(sizeof(struct electric_mobility));
+    if (new_mobility == NULL)
+    {
+        printf("Error: Failed to allocate memory for new electric mobility.\n");
+        return 0; // Return 0 to indicate failure
+    }
+
+    new_mobility->id = id;
+    new_mobility->name = malloc((strlen(name) + 1) * sizeof(char));
+    strcpy(new_mobility->name, name);
+    new_mobility->price = price;
+    new_mobility->stock = stock;
+    new_mobility->rent = rent;
+    new_mobility->autonomy = autonomy;
+    new_mobility->battery_level = battery_level;
+    new_mobility->next = NULL;
+
+    if (mobility_head == NULL) // Empty list
+    {
+        mobility_head = new_mobility;
+    }
+    else // Non-empty list
+    {
+        struct electric_mobility *current_mobility = mobility_head;
+        while (current_mobility->next != NULL)
+        {
+            current_mobility = current_mobility->next;
+        }
+        current_mobility->next = new_mobility;
+    }
+
+    return 1; // Return 1 to indicate success
+}
+
+// list_mobility
+int list_mobility()
+{
+    struct electric_mobility *current = mobility_head;
+    while (current != NULL)
+    {
+        printf("id: %d\n", current->id);
+        printf("name: %s\n", current->name);
+        printf("price: %f\n", current->price);
+        printf("stock: %d\n", current->stock);
+        printf("rent: %f\n", current->rent);
+        printf("autonomy: %f\n", current->autonomy);
+        printf("battery_level: %d\n", current->battery_level);
+        printf("\n");
+        current = current->next;
+       
+    }
+    return 1; // Return 1 to indicate success
+}
