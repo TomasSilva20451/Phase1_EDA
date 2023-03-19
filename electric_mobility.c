@@ -5,6 +5,8 @@
 #include "electric_mobility.h"
 
 #define PRICE 0.25
+#define MAX_MOBILITY 100
+
 
 struct electric_mobility *mobility_head = NULL;
 
@@ -248,5 +250,60 @@ void list_electric_mobility_by_autonomy(ElectricMobility* head) {
         current->autonomy,
         current->battery_level);
         current = current->next;
+    }
+}
+
+// list_electric_mobility_by_autonomy_and_location
+void list_electric_mobility_by_autonomy_and_location(char *location)
+{
+    // Create an array to store electric mobility with the given location
+    ElectricMobility *mobility_array[MAX_MOBILITY];
+    int num_mobility = 0;
+
+    // Traverse the linked list and add electric mobility with the given location to the array
+    struct electric_mobility *current = mobility_head;
+    while (current != NULL)
+    {
+        if (strcmp(current->location, location) == 0)
+        {
+            mobility_array[num_mobility] = create_electric_mobility(current->id, current->name, current->license_plate, current->location, current->price, current->stock, current->rent, current->autonomy, current->battery_level);
+            num_mobility++;
+        }
+        current = current->next;
+    }
+
+    // Sort the array by autonomy using bubble sort
+    for (int i = 0; i < num_mobility - 1; i++)
+    {
+        for (int j = 0; j < num_mobility - i - 1; j++)
+        {
+            if (mobility_array[j]->autonomy < mobility_array[j+1]->autonomy)
+            {
+                ElectricMobility *temp = mobility_array[j];
+                mobility_array[j] = mobility_array[j+1];
+                mobility_array[j+1] = temp;
+            }
+        }
+    }
+
+    // Output the electric mobility in the array
+    for (int i = 0; i < num_mobility; i++)
+    {
+        printf("ID: %d\n", mobility_array[i]->id);
+        printf("Name: %s\n", mobility_array[i]->name);
+        printf("License Plate: %s\n", mobility_array[i]->license_plate);
+        printf("Location: %s\n", mobility_array[i]->location);
+        printf("Price: %f\n", mobility_array[i]->price);
+        printf("Stock: %d\n", mobility_array[i]->stock);
+        printf("Rent: %f\n", mobility_array[i]->rent);
+        printf("Autonomy: %f\n", mobility_array[i]->autonomy);
+        printf("Battery Level: %d\n", mobility_array[i]->battery_level);
+        printf("\n");
+    }
+
+    // Free the memory allocated for the electric mobility in the array
+    for (int i = 0; i < num_mobility; i++)
+    {
+        destroy_electric_mobility(mobility_array[i]);
     }
 }

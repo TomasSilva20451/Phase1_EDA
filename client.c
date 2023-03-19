@@ -105,25 +105,3 @@ Client *load_clients(char *filename)
     return clients_head;
 }
 
-
-/*void save_clients(char *filename)
-{
-    FILE *outfile = fopen(filename, "w");
-    if (outfile == NULL)
-    {
-        fprintf(stderr, "Error opening file %s for writing\n", filename);
-        return;
-    }
-
-    for (int i = 0; i < num_clients; i++)
-    {
-        fprintf(outfile, "%s,%s,%s,%d\n", clients[i].name, clients[i].email,
-                clients[i].phone, clients[i].age);
-    }
-
-    fclose(outfile);
-    printf("Saved %d clients to %s\n", num_clients, filename);
-
-    fclose(outfile);
-    printf("Saved %d clients to %s\n", num_clients, filename);
-    }*/

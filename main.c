@@ -16,29 +16,33 @@
 
 void list_clients(void);
 int list_mobility();
+void list_electric_mobility_by_location(char *location);
+void list_electric_mobility_by_autonomy(ElectricMobility *head);
+void list_electric_mobility_by_autonomy_and_location(char *location);
+
 int remove_electric_mobility(char *license_plate);
-void list_electric_mobility_by_location(char* location) ;
-void list_electric_mobility_by_autonomy(ElectricMobility* head);
-// debug - fix this - void list_mobility(void);
+void remove_client(int nif);
+// int remove_manager(char *email);
 
 
-//void print_electric_mobility(int em);
-// void add_new_electric_mobility(char *manufacturer, char *model, char *license_plate, int autonomy, int charging_time, float hourly_price, char *location);
-// void remove_electric_mobility(char *license_plate);
-// void list_electric_mobility_by_location(char *location);
-// void list_electric_mobility_by_autonomy(void);
-// void update_client_data(int nif, char *new_email, char *new_phone_number);
-// void register_rental(int nif, char *license_plate, char *start_date, char *start_time, int duration);
-// void list_electric_mobility_by_autonomy_and_location(char *location);
-// void remove_manager(char *email);
-// void remove_client(char *nif);
-// void remove_manager(char *email);
-// void remove_client(char *nif);
-// void list_managers(void);
-// void remove_client(char nif[]);
+
 void save_client_data_to_file(const char *file_name);
 // void save_electric_mobility_data_to_file(char *filename);
 // void read_electric_mobility_file(char *filename);
+// void print_electric_mobility(int em);
+//  void add_new_electric_mobility(char *manufacturer, char *model, char *license_plate, int autonomy, int charging_time, float hourly_price, char *location);
+//  void remove_electric_mobility(char *license_plate);
+//  void list_electric_mobility_by_location(char *location);
+//  void list_electric_mobility_by_autonomy(void);
+//  void update_client_data(int nif, char *new_email, char *new_phone_number);
+//  void register_rental(int nif, char *license_plate, char *start_date, char *start_time, int duration);
+//  void list_electric_mobility_by_autonomy_and_location(char *location);
+//  void remove_manager(char *email);
+//  void remove_client(char *nif);
+//  void remove_manager(char *email);
+//  void remove_client(char *nif);
+//  void list_managers(void);
+//  void remove_client(char nif[]);
 
 int main()
 {
@@ -95,9 +99,9 @@ int main()
             list_clients();
             break;
         }
-       case 3:
+        case 3:
         {
-            char id[100], name[100],license_plate[10],location[100], price[100], stock[100], rent[100], autonomy[100], battery_level[100];
+            char id[100], name[100], license_plate[10], location[100], price[100], stock[100], rent[100], autonomy[100], battery_level[100];
 
             printf("ID: ");
             fgets(id, 100, stdin);
@@ -118,9 +122,7 @@ int main()
             printf("Battery Level: ");
             fgets(battery_level, 100, stdin);
 
-            
-            add_mobility(atoi(id), name, license_plate, location,  atof(price), atoi(stock), atof(rent), atof(autonomy), atoi(battery_level));
-
+            add_mobility(atoi(id), name, license_plate, location, atof(price), atoi(stock), atof(rent), atof(autonomy), atoi(battery_level));
 
             break;
         }
@@ -136,11 +138,14 @@ int main()
             printf("Matrícula do veículo a remover: ");
             fgets(license_plate, 10, stdin);
             int remove_electric_mobility(char *license_plate);
-           
+
             int success = remove_electric_mobility(license_plate);
-            if (success) {
+            if (success)
+            {
                 printf("Electric mobility with license plate %s has been removed.\n", license_plate);
-            } else {
+            }
+            else
+            {
                 printf("Failed to remove electric mobility with license plate %s.\n", license_plate);
             }
             break;
@@ -155,34 +160,29 @@ int main()
         }
         case 7:
         {
-            ElectricMobility* head = NULL;
+            ElectricMobility *head = NULL;
             list_electric_mobility_by_autonomy(head);
             break;
         }
         case 8:
         {
-            char name[50], email[100], password[20],type[100],description[100],salary[100] ,phone_number[15];
+            char name[50], email[100], password[20], type[100], description[100], salary[100], phone_number[15];
             printf("Nome: ");
             fgets(name, 50, stdin);
             printf("E-mail: ");
             fgets(email, 100, stdin);
-             printf("Password: ");
+            printf("Password: ");
             fgets(password, 20, stdin);
-             printf("Type: ");
+            printf("Type: ");
             fgets(type, 100, stdin);
-             printf("Description: ");
+            printf("Description: ");
             fgets(description, 100, stdin);
-             printf("Salary: ");
+            printf("Salary: ");
             fgets(salary, 100, stdin);
             printf("Número de telefone: ");
             fgets(phone_number, 15, stdin);
-            
-           
-           
 
-            //add_manager(name, atoi(phone_number), email, atoi(nif));
-
-            
+            // add_manager(name, atoi(phone_number), email, atoi(nif));
 
             break;
         }
@@ -203,10 +203,15 @@ int main()
         }
         case 10:
         {
-            char nif[10];
+            int nif;
             printf("NIF do cliente a remover: ");
-            fgets(nif, 10, stdin);
-            // remove_client(nif);
+            scanf("%d", &nif);
+
+            void remove_client(int nif);
+            remove_client(nif);
+
+            printf("Cliente com NIF %d foi removido.\n", nif);
+
             break;
         }
         case 11:
@@ -234,7 +239,7 @@ int main()
             char location[100];
             printf("Localização dos veículos: ");
             fgets(location, 100, stdin);
-            // list_electric_mobility_by_autonomy_and_location(location);
+            list_electric_mobility_by_autonomy_and_location(location);
             break;
         }
         case 13:
