@@ -231,7 +231,7 @@ void sortByAutonomy(ElectricMobility** head_ref) {
         current = current->next;
     }
 }
-
+// list_electric_mobility_by_autonomy
 void list_electric_mobility_by_autonomy(ElectricMobility* head) {
     sortByAutonomy(&head);
     printf("Electric mobility list sorted by autonomy:\n");

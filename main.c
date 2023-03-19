@@ -25,7 +25,7 @@ void update_client_data(int nif, char *new_email, char *new_phone_number);
 
 int remove_electric_mobility(char *license_plate);
 void remove_client(int nif);
-// int remove_manager(char *email);
+void remove_manager(char *email);
 
 void save_client_data_to_file(const char *file_name);
 // void save_electric_mobility_data_to_file(char *filename);
@@ -44,6 +44,8 @@ void save_client_data_to_file(const char *file_name);
 //  void remove_client(char *nif);
 //  void list_managers(void);
 //  void remove_client(char nif[]);
+void add_manager(char *name, char *email, char *password, char *type, char *description, float salary, int phone_number);
+
 
 int main()
 {
@@ -183,7 +185,7 @@ int main()
             printf("Número de telefone: ");
             fgets(phone_number, 15, stdin);
 
-            // add_manager(name, atoi(phone_number), email, atoi(nif));
+            add_manager(name, email, password, type, description, atof(salary), atoi(phone_number));
 
             break;
         }
@@ -248,12 +250,12 @@ int main()
             char email[100];
             printf("E-mail do gestor a remover: ");
             fgets(email, 100, stdin);
-            // remove_manager(email);
+            remove_manager(email);
             break;
         }
         case 14:
         {
-            // list_managers();
+            list_manager();
             break;
         }
         case 0:
@@ -271,5 +273,6 @@ int main()
         }
         }
     } while (option != 0);
+
     return 0;
 }

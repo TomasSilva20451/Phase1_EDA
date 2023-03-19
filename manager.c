@@ -41,61 +41,41 @@ void add_manager(char *name, char *email, char *password, char *type, char *desc
     current->next = new_manager;
 }
 
-/*
-int remove_manager(char *email) {
-    FILE *fp;
-    FILE *temp;
-    char buffer[MAX_LINE_SIZE];
-    int found = 0;
-    int success = 0;
+void remove_manager(char *email)
+{
+    struct manager *current = managers_head;
+    struct manager *previous = NULL;
 
-    // open the managers file for reading
-    fp = fopen("managers.txt", "r");
-    if (fp == NULL) {
-        printf("Error: could not open managers file.\n");
-        return -1;
-    }
-
-    // open a temporary file for writing
-    temp = fopen("temp.txt", "w");
-    if (temp == NULL) {
-        printf("Error: could not create temporary file.\n");
-        fclose(fp);
-        return -1;
-    }
-
-    // read each line of the managers file and write it to the temporary file,
-    // except for the line with the manager to be removed
-    while (fgets(buffer, MAX_LINE_SIZE, fp) != NULL) {
-        if (strstr(buffer, email) == NULL) {
-            // this is not the manager to be removed, so write it to the temporary file
-            fputs(buffer, temp);
-        } else {
-            // this is the manager to be removed, so skip it
-            found = 1;
+    while (current != NULL)
+    {
+        if (strcmp(current->email, email))
+        {
+            if (previous == NULL)
+            {
+                managers_head = current->next;
+            }
+            else
+            {
+                previous->next = current->next;
+            }
+            free(current);
+            return;
         }
+        previous = current;
+        current = current->next;
     }
-
-    // close both files
-    fclose(fp);
-    fclose(temp);
-
-    // remove the original managers file and rename the temporary file to take its place
-    if (found) {
-        if (remove("managers.txt") != 0) {
-            printf("Error: could not remove managers file.\n");
-            return -1;
-        }
-        if (rename("temp.txt", "managers.txt") != 0) {
-            printf("Error: could not rename temporary file.\n");
-            return -1;
-        }
-        success = 1;
-    } else {
-        // the manager to be removed was not found
-        printf("Error: manager not found.\n");
-    }
-
-    return success;
 }
-*/
+void list_manager(){
+    struct manager *current = managers_head;
+    while (current != NULL)
+    {
+        printf("Name: %s\n", current->name);
+        printf("Email: %s\n", current->email);
+        printf("Phone number: %d\n", current->phone_number);
+        printf("type: %s\n", current->type);
+        printf("description: %s\n", current->description);
+        printf("salary: %f\n", current->salary);
+        printf("\n");
+        current = current->next;
+    }
+}

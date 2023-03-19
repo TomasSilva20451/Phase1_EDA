@@ -11,11 +11,11 @@
 
 struct manager
 {
-    char *name;
-    char *email;
-    char *password;
-    char *type;
-    char *description;
+    char name[MAX_MANAGER_NAME_LENGTH];
+    char email[MAX_MANAGER_EMAIL_LENGTH];
+    char password[MAX_MANAGER_PASSWORD_LENGTH];
+    char type[MAX_MANAGER_TYPE_LENGTH];
+    char description[MAX_MANAGER_DESCRIPTION_LENGTH];
     float salary;
     int phone_number;
     struct manager *next;
@@ -23,8 +23,8 @@ struct manager
 
 // add_manager
 void add_manager(char *name, char *email, char *password, char *type, char *description, float salary, int phone_number);
-
-
+void list_manager();
+void remove_manager(char *email);
 
 
 
