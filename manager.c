@@ -41,6 +41,7 @@ void add_manager(char *name, char *email, char *password, char *type, char *desc
     current->next = new_manager;
 }
 
+// remove_manager
 void remove_manager(char *email)
 {
     struct manager *current = managers_head;
@@ -65,6 +66,8 @@ void remove_manager(char *email)
         current = current->next;
     }
 }
+
+// list manager
 void list_manager(){
     struct manager *current = managers_head;
     while (current != NULL)

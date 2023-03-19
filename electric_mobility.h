@@ -36,10 +36,5 @@ void destroy_electric_mobility(ElectricMobility *em);
 void read_electric_mobility_file(const char *filename) ;
 
 
-//float get_price_per_kwh(ElectricMobility *em);
-//void set_price_per_kwh(ElectricMobility *em, float price_per_kwh);
-//float calculate_price(ElectricMobility *em, Client *client, float kwh);
-
-
 
 #endif /* ELECTRIC_MOBILITY_H */

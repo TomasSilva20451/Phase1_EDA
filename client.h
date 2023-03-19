@@ -17,25 +17,12 @@ typedef struct client
 
 extern struct client *clients_head;
 
+// add_client
 void add_client(char *name, int phone_number, char *email, int nif);
 
+// save_client_data_to_file
 void save_client_data_to_file(char *filename) ;
-/*
-typedef struct client {
-    char name[MAX_NAME_LENGTH];
-    char address[MAX_ADDRESS_LENGTH];
-    int age;
-    int phone_number;
-    char email[MAX_EMAIL];
-    int account_numbers[MAX_ACCOUNTS];
-    double account_balances[MAX_ACCOUNTS];
-    int num_accounts;
-    int nif;
-    struct client* next;
-} Client;
-*/
-// add_client
-// void add_client(char *name, int phone_number, char *email, int nif);
+
 
 Client *new_client(char *name, char *address, int phone_number, int nif);
 

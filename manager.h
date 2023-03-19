@@ -23,16 +23,18 @@ struct manager
 
 // add_manager
 void add_manager(char *name, char *email, char *password, char *type, char *description, float salary, int phone_number);
+
+// list_manager
 void list_manager();
+
+// remove_manager
 void remove_manager(char *email);
+
+// load_manager_data_from_file
 void load_manager_data_from_file(char *filename);
+
+// save_manager_data_to_file
 void save_manager_data_to_file(char *filename);
 
-// void delete_manager(char *email);
-/*
-void print_all_managers();
-void update_manager_info(char *email, char *new_name, char *new_password, char *new_type, char *new_location_geocode, float new_autonomy, float new_battery_level, float new_cost, char *new_description);
-void save_manager_data_to_file(char *filename);
-void load_manager_data_from_file(char *filename);
-*/
+
 #endif /* MANAGER.H */

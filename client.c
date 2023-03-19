@@ -48,6 +48,7 @@ void list_clients(char *name, int phone_number, char *email, int nif)
     }
 }
 
+// remove_client
 void remove_client(int nif)
 {
     struct client *current = clients_head;
