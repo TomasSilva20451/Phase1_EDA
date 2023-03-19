@@ -27,7 +27,12 @@ int remove_electric_mobility(char *license_plate);
 void remove_client(int nif);
 void remove_manager(char *email);
 
-void save_client_data_to_file(const char *file_name);
+Client *load_clients(char *filename);
+void read_electric_mobility_file(char *filename);
+
+
+
+//void save_client_data_to_file(const char *file_name);
 // void save_electric_mobility_data_to_file(char *filename);
 // void read_electric_mobility_file(char *filename);
 // void print_electric_mobility(int em);
@@ -51,7 +56,8 @@ int main()
 {
     int option;
 
-    // load_client_data_from_file("client.bin");
+    Client *clients = load_clients("client.bin");
+
     // read_electric_mobility_file("electric_mobility.bin");
     // load_manager_data_from_file("manager.bin");
 

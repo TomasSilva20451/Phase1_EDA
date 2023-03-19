@@ -33,7 +33,7 @@ void add_client(char *name, int phone_number, char *email, int nif)
     current->next = new_client;
 }
 
-// list_clients 
+// list_clients
 void list_clients(char *name, int phone_number, char *email, int nif)
 {
     struct client *current = clients_head;
@@ -73,14 +73,32 @@ void remove_client(int nif)
     }
 }
 
+// update_client_data
+void update_client_data(int nif, char *new_email, char *new_phone_number)
+{
+    struct client *current = clients_head;
+    while (current != NULL)
+    {
+        if (current->nif == nif)
+        {
+            strcpy(current->email, new_email);
+            current->phone_number = atoi(new_phone_number);
+            printf("Dados do cliente atualizados com sucesso.\n");
+            return;
+        }
+        current = current->next;
+    }
+    printf("NIF do cliente não encontrado.\n");
+}
 
+// load_clients file
 Client *load_clients(char *filename)
 {
     FILE *fp = fopen(filename, "rb");
     if (fp == NULL)
     {
         printf("Error opening file.\n");
-        return 0;
+        return NULL;
     }
 
     char name[MAX_NAME_LENGTH];
@@ -98,27 +116,9 @@ Client *load_clients(char *filename)
         fread(nif, MAX_NIF_LENGTH - 1, 1, fp);
         nif[MAX_NIF_LENGTH - 1] = '\0';
 
-        // add_client(name, email, atoi(phone_number), atoi(nif));
+        add_client(name, atoi(phone_number), email, atoi(nif));
     }
 
     fclose(fp);
     return clients_head;
-}
-
-// update_client_data
-void update_client_data(int nif, char *new_email, char *new_phone_number)
-{
-    struct client *current = clients_head;
-    while (current != NULL)
-    {
-        if (current->nif == nif)
-        {
-            strcpy(current->email, new_email);
-            current->phone_number = atoi(new_phone_number);
-            printf("Dados do cliente atualizados com sucesso.\n");
-            return;
-        }
-        current = current->next;
-    }
-    printf("NIF do cliente não encontrado.\n");
 }

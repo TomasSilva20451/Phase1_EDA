@@ -3,7 +3,7 @@
 #include <string.h>
 #include "electric_mobility.h"
 #include "rental.h"
-
+/*
 void write_electric_mobility_to_file(FILE *fp, ElectricMobility *em)
 {
     fwrite(em, sizeof(ElectricMobility), 1, fp);
@@ -23,7 +23,8 @@ void save_electric_mobility_to_file(ElectricMobility *em)
     fclose(fp);
 }
 
-/*ElectricMobility *find_electric_mobility_by_id(ElectricMobility *electric_mobility_list,int id)
+
+ElectricMobility *find_electric_mobility_by_id(ElectricMobility *electric_mobility_list,int id)
 {
     FILE *fp = fopen("electric_mobility.dat", "rb"); 
     ElectricMobility *em;
@@ -39,7 +40,8 @@ void save_electric_mobility_to_file(ElectricMobility *em)
 
     fclose(fp);
     return NULL;
-}*/
+}
+
 
 void delete_electric_mobility(int id)
 {
@@ -60,3 +62,4 @@ void delete_electric_mobility(int id)
     remove("electric_mobility.dat");
     rename("tmp.dat", "electric_mobility.dat");
 }
+*/
