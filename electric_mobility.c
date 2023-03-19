@@ -9,7 +9,7 @@
 struct electric_mobility *mobility_head = NULL;
 
 // create_electric_mobility
-ElectricMobility *create_electric_mobility(int id, char *name, char *license_plate, float price, int stock, float rent, float autonomy, int battery_level)
+ElectricMobility *create_electric_mobility(int id, char *name, char *license_plate, char *location, float price, int stock, float rent, float autonomy, int battery_level)
 {
     ElectricMobility *em = malloc(sizeof(ElectricMobility));
     if (em == NULL)
@@ -26,6 +26,9 @@ ElectricMobility *create_electric_mobility(int id, char *name, char *license_pla
     em->license_plate = malloc((strlen(license_plate) + 1) * sizeof(char));
     strcpy(em->license_plate, license_plate);
 
+    em->location = malloc((strlen(location) + 1) * sizeof(char));
+    strcpy(em->location, location);
+
     em->price = price;
     em->stock = stock;
     em->rent = rent;
@@ -41,7 +44,7 @@ void destroy_electric_mobility(ElectricMobility *em)
 }
 
 // add_mobility -int or void
-int add_mobility(int id, char *name, char *license_plate, float price, int stock, float rent, float autonomy, int battery_level)
+int add_mobility(int id, char *name, char *license_plate, char *location, float price, int stock, float rent, float autonomy, int battery_level)
 {
     struct electric_mobility *new_mobility = malloc(sizeof(struct electric_mobility));
     if (new_mobility == NULL)
@@ -56,6 +59,9 @@ int add_mobility(int id, char *name, char *license_plate, float price, int stock
 
     new_mobility->license_plate = malloc((strlen(license_plate) + 1) * sizeof(char));
     strcpy(new_mobility->license_plate, license_plate);
+
+    new_mobility->location = malloc((strlen(location) + 1) * sizeof(char));
+    strcpy(new_mobility->location, location);
 
     new_mobility->price = price;
     new_mobility->stock = stock;
@@ -90,6 +96,7 @@ int list_mobility()
         printf("ID: %d\n", current->id);
         printf("Name: %s\n", current->name);
         printf("License Plate: %s\n", current->license_plate);
+        printf("Location: %s\n", current->location);
         printf("Price: %f\n", current->price);
         printf("Stock: %d\n", current->stock);
         printf("Rent: %f\n", current->rent);
@@ -101,37 +108,65 @@ int list_mobility()
     return 1; // Return 1 to indicate success
 }
 
-/*
-void charge(ElectricMobility *em)
+// remove_electric_mobility
+int remove_electric_mobility(char *license_plate)
 {
-    em->battery_level = 100;
-    printf("Battery charged to 100%%\n");
-}
-*/
+    if (mobility_head == NULL) // Empty list
+    {
+        printf("Error: No electric mobility to remove.\n");
+        return 0; // Return 0 to indicate failure
+    }
 
-/*
-void ride(ElectricMobility *em, Client *client, int distance)
+    // Special case: remove head node
+    if (strcmp(mobility_head->license_plate, license_plate) == 0)
+    {
+        struct electric_mobility *temp = mobility_head;
+        mobility_head = mobility_head->next;
+        destroy_electric_mobility(temp);
+
+        return 1; // Return 1 to indicate success
+    }
+
+    struct electric_mobility *current_mobility = mobility_head->next;
+    struct electric_mobility *previous_mobility = mobility_head;
+
+    while (current_mobility != NULL)
+    {
+        if (strcmp(current_mobility->license_plate, license_plate) == 0)
+        {
+            previous_mobility->next = current_mobility->next;
+            destroy_electric_mobility(current_mobility);
+            printf("Electric mobility with license plate %s has been removed.\n", license_plate);
+            return 1; // Return 1 to indicate success
+        }
+
+        previous_mobility = current_mobility;
+        current_mobility = current_mobility->next;
+    }
+
+    printf("Error: Electric mobility with license plate %s not found.\n", license_plate);
+    return 0; // Return 0 to indicate failure
+}
+
+// list_electric_mobility_by_location
+void list_electric_mobility_by_location(char *location)
 {
-    if (em->battery_level <= 0)
+    struct electric_mobility *current = mobility_head;
+    while (current != NULL)
     {
-        printf("Error: Battery is dead. Please charge the vehicle before riding.\n");
-        return;
-    }
-    if (distance > em->battery_level * 4)
-    {
-        printf("Error: Vehicle can't make the trip. Please choose a shorter distance or charge the vehicle.\n");
-        return;
-    }
-    float cost = distance * PRICE;
-
-    if (withdraw(client, cost))
-    {
-        em->battery_level -= distance / 4;
-        printf("Ride completed. Your new account balance is $%.2f. Vehicle's battery level is now %d%%.\n", get_balance(client), em->battery_level);
-    }
-    else
-    {
-        printf("Error: Insufficient funds to complete the ride.\n");
+        if (strcmp(current->location, location) == 0)
+        {
+            printf("ID: %d\n", current->id);
+            printf("Name: %s\n", current->name);
+            printf("License Plate: %s\n", current->license_plate);
+            printf("Location: %s\n", current->location);
+            printf("Price: %f\n", current->price);
+            printf("Stock: %d\n", current->stock);
+            printf("Rent: %f\n", current->rent);
+            printf("Autonomy: %f\n", current->autonomy);
+            printf("Battery Level: %d\n", current->battery_level);
+            printf("\n");
+        }
+        current = current->next;
     }
 }
-*/

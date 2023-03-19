@@ -4,6 +4,7 @@
 #define MAX_ID_LENGTH 100
 #define MAX_NAME_MOBILITY_LENGTH 100
 #define MAX_LICENSE_PLATE_LENGTH 10
+#define MAX_LOCATION_PLATE_LENGTH 100
 #define MAX_PRICE_LENGTH 100
 #define MAX_STOCK_LENGTH 100
 #define MAX_RENT_LENGTH 100
@@ -17,6 +18,7 @@ typedef struct electric_mobility
     int id;
     char *name;
     char *license_plate;
+    char *location;
     float price;
     int stock;
     float rent;
@@ -28,18 +30,13 @@ typedef struct electric_mobility
 extern struct electric_mobility *mobility_head;
 
 
-int add_mobility(int id, char *name, char *license_plate, float price, int stock, float rent, float autonomy, int battery_level);
+int add_mobility(int id, char *name, char *license_plate, char *location, float price, int stock, float rent, float autonomy, int battery_level);
 
 void destroy_electric_mobility(ElectricMobility *em);
 float get_price_per_kwh(ElectricMobility *em);
 void set_price_per_kwh(ElectricMobility *em, float price_per_kwh);
 float calculate_price(ElectricMobility *em, Client *client, float kwh);
 
-// create_electric_mobility_list
-/*void print_electric_mobility(ElectricMobility *em);
-ElectricMobilityList *list = (ElectricMobilityList *)malloc(sizeof(ElectricMobilityList));
-list->head = NULL;
-list->size = 0;
-*/
+
 
 #endif /* ELECTRIC_MOBILITY_H */

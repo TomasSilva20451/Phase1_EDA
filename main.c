@@ -16,7 +16,8 @@
 
 void list_clients(void);
 int list_mobility();
-
+int remove_electric_mobility(char *license_plate);
+void list_electric_mobility_by_location(char* location) ;
 // debug - fix this - void list_mobility(void);
 
 
@@ -95,16 +96,16 @@ int main()
         }
        case 3:
         {
-            char id[100], name[100],license_plate[10], price[100], stock[100], rent[100], autonomy[100], battery_level[100];
+            char id[100], name[100],license_plate[10],location[100], price[100], stock[100], rent[100], autonomy[100], battery_level[100];
 
             printf("ID: ");
             fgets(id, 100, stdin);
             printf("Name: ");
             fgets(name, 100, stdin);
-
             printf("License plate: ");
             fgets(license_plate, 10, stdin);
-
+            printf("Location: ");
+            fgets(location, 100, stdin);
             printf("Price: ");
             fgets(price, 100, stdin);
             printf("Stock: ");
@@ -117,7 +118,7 @@ int main()
             fgets(battery_level, 100, stdin);
 
             
-            add_mobility(atoi(id), name, license_plate,  atof(price), atoi(stock), atof(rent), atof(autonomy), atoi(battery_level));
+            add_mobility(atoi(id), name, license_plate, location,  atof(price), atoi(stock), atof(rent), atof(autonomy), atoi(battery_level));
 
 
             break;
@@ -133,7 +134,14 @@ int main()
             char license_plate[10];
             printf("Matrícula do veículo a remover: ");
             fgets(license_plate, 10, stdin);
-            // remove_electric_mobility(license_plate);
+            int remove_electric_mobility(char *license_plate);
+           
+            int success = remove_electric_mobility(license_plate);
+            if (success) {
+                printf("Electric mobility with license plate %s has been removed.\n", license_plate);
+            } else {
+                printf("Failed to remove electric mobility with license plate %s.\n", license_plate);
+            }
             break;
         }
         case 6:
@@ -141,7 +149,7 @@ int main()
             char location[100];
             printf("Localização dos veículos: ");
             fgets(location, 100, stdin);
-            // list_electric_mobility_by_location(location);
+            list_electric_mobility_by_location(location);
             break;
         }
         case 7:
