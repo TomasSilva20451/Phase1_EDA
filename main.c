@@ -20,11 +20,12 @@ void list_electric_mobility_by_location(char *location);
 void list_electric_mobility_by_autonomy(ElectricMobility *head);
 void list_electric_mobility_by_autonomy_and_location(char *location);
 
+void update_client_data(int nif, char *new_email, char *new_phone_number);
+
+
 int remove_electric_mobility(char *license_plate);
 void remove_client(int nif);
 // int remove_manager(char *email);
-
-
 
 void save_client_data_to_file(const char *file_name);
 // void save_electric_mobility_data_to_file(char *filename);
@@ -189,16 +190,16 @@ int main()
         case 9:
         {
             char new_email[100], new_phone_number[20];
-            // char nif_str[10];
-            // int nif;
-            /*printf("NIF do cliente a alterar: ");
-            fgets(nif_str, 10, stdin);*/
-            // nif = atoi(nif_str);
+            char nif_str[10];
+            int nif;
+            printf("NIF do cliente a alterar: ");
+            fgets(nif_str, 10, stdin);
+            nif = atoi(nif_str);
             printf("Novo e-mail: ");
             fgets(new_email, 100, stdin);
             printf("Novo número de telefone: ");
             fgets(new_phone_number, 20, stdin);
-            // update_client_data(nif, new_email, new_phone_number);
+            update_client_data(nif, new_email, new_phone_number);
             break;
         }
         case 10:

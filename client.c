@@ -105,3 +105,20 @@ Client *load_clients(char *filename)
     return clients_head;
 }
 
+// update_client_data
+void update_client_data(int nif, char *new_email, char *new_phone_number)
+{
+    struct client *current = clients_head;
+    while (current != NULL)
+    {
+        if (current->nif == nif)
+        {
+            strcpy(current->email, new_email);
+            current->phone_number = atoi(new_phone_number);
+            printf("Dados do cliente atualizados com sucesso.\n");
+            return;
+        }
+        current = current->next;
+    }
+    printf("NIF do cliente não encontrado.\n");
+}
