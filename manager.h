@@ -25,6 +25,7 @@ struct manager
 void add_manager(char *name, char *email, char *password, char *type, char *description, float salary, int phone_number);
 void list_manager();
 void remove_manager(char *email);
+void load_manager_data_from_file(char *filename);
 
 
 

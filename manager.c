@@ -79,3 +79,31 @@ void list_manager(){
         current = current->next;
     }
 }
+
+// load_manager_data_from_file
+void load_manager_data_from_file(char *filename)
+{
+    FILE *file = fopen(filename, "rb");
+    if (file == NULL)
+    {
+        printf("Erro ao abrir o arquivo %s\n", filename);
+        return;
+    }
+
+    char header[sizeof(MANAGER_DATA_FILE_HEADER)];
+    fread(header, sizeof(char), sizeof(MANAGER_DATA_FILE_HEADER), file);
+
+    if (strcmp(header, MANAGER_DATA_FILE_HEADER) != 0)
+    {
+        printf("Arquivo %s inválido\n", filename);
+        return;
+    }
+
+    struct manager manager_data;
+    while (fread(&manager_data, sizeof(struct manager), 1, file) == 1)
+    {
+        add_manager(manager_data.name, manager_data.email, manager_data.password, manager_data.type, manager_data.description, manager_data.salary, manager_data.phone_number);
+    }
+
+    fclose(file);
+}
