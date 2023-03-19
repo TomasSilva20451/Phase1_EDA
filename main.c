@@ -268,7 +268,7 @@ int main()
         {
             save_client_data_to_file("client.bin");
             save_electric_mobility_data_to_file("electric_mobility.bin");
-            // save_manager_data_to_file("manager.bin");
+            save_manager_data_to_file("manager.dat");
             
             printf("A sair...\n");
             break;

@@ -26,9 +26,7 @@ void add_manager(char *name, char *email, char *password, char *type, char *desc
 void list_manager();
 void remove_manager(char *email);
 void load_manager_data_from_file(char *filename);
-
-
-
+void save_manager_data_to_file(char *filename);
 
 // void delete_manager(char *email);
 /*

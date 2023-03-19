@@ -107,3 +107,32 @@ void load_manager_data_from_file(char *filename)
 
     fclose(file);
 }
+
+// save_manager_data_to_file
+void save_manager_data_to_file(char *filename) {
+    FILE *file = fopen(filename, "wb");
+    if (file == NULL) {
+        printf("Erro ao criar o arquivo %s\n", filename);
+        return;
+    }
+
+    size_t header_size = sizeof(MANAGER_DATA_FILE_HEADER);
+    if (fwrite(MANAGER_DATA_FILE_HEADER, sizeof(char), header_size, file) != header_size) {
+        printf("Erro ao escrever o cabeçalho no arquivo %s\n", filename);
+        fclose(file);
+        return;
+    }
+
+    struct manager *current = managers_head;
+    while (current != NULL) {
+        if (fwrite(current, sizeof(struct manager), 1, file) != 1) {
+            printf("Erro ao escrever os dados do gestor no arquivo %s\n", filename);
+            fclose(file);
+            return;
+        }
+        current = current->next;
+    }
+
+    fclose(file);
+}
+
