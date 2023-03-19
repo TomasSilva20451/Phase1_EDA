@@ -95,12 +95,16 @@ int main()
         }
        case 3:
         {
-            char id[100], name[100], price[100], stock[100], rent[100], autonomy[100], battery_level[100];
+            char id[100], name[100],license_plate[10], price[100], stock[100], rent[100], autonomy[100], battery_level[100];
 
             printf("ID: ");
             fgets(id, 100, stdin);
             printf("Name: ");
             fgets(name, 100, stdin);
+
+            printf("License plate: ");
+            fgets(license_plate, 10, stdin);
+
             printf("Price: ");
             fgets(price, 100, stdin);
             printf("Stock: ");
@@ -113,7 +117,7 @@ int main()
             fgets(battery_level, 100, stdin);
 
             
-            add_mobility(atoi(id), name, atof(price), atoi(stock), atof(rent), atof(autonomy), atoi(battery_level));
+            add_mobility(atoi(id), name, license_plate,  atof(price), atoi(stock), atof(rent), atof(autonomy), atoi(battery_level));
 
 
             break;
