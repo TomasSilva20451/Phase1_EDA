@@ -69,9 +69,16 @@ int main()
         case 1:
         {
 
-            /*The code snippet reads user input for the client's name, email, phone number, and NIF and then calls the add_client() function to add the client to the system. The add_client() function takes the client's name, phone number, email, and NIF as parameters and adds a new client to the system.
+            /*O trecho de código lê a entrada do usuário para o nome, e-mail, número de telefone e NIF 
+            do cliente e,
+             em seguida, chama a função add_client() para adicionar o cliente ao sistema. 
+             A função add_client() usa o nome, número de telefone, e-mail e NIF do cliente como 
+             parâmetros e adiciona um novo cliente ao sistema.
 
-            It seems that the phone number and NIF are being converted to integers using the atoi() function before being passed to the add_client() function. This might cause problems if the user enters non-numeric characters for these fields. It might be better to validate the user input before passing it to the add_client() function.*/
+            Parece que o número de telefone e NIF estão sendo convertidos em inteiros usando 
+            a função atoi() antes de serem passados para a função add_client(). 
+            Isso pode causar problemas se o usuário inserir caracteres não numéricos para esses campos. 
+            Pode ser melhor validar a entrada do usuário antes de passá-la para a função add_client().*/
             char name[100], email[100], phone_number[20], nif[10];
             printf("Nome: ");
             fgets(name, 100, stdin);
@@ -94,11 +101,17 @@ int main()
         }
         case 3:
         {
-            /*This code snippet is prompting the user to input values for the fields of a new electric mobility object, and then passing those values to the add_mobility() function to add the object to the list of electric mobilities.
+            /*Tseu trecho de código está solicitando que o usuário insira valores para os campos de um novo objeto de mobilidade elétrica e
+            , em seguida, passe esses valores para a função add_mobility()
+             para adicionar o objeto à lista de mobilidades elétricas.
 
-The fgets() function is being used to read in strings of characters from the standard input stream, and the atoi() and atof() functions are being used to convert those strings to their corresponding integer and float values, respectively.
+        A função fgets() está sendo usada para ler em cadeias de caracteres do 
+        fluxo de entrada padrão, e as funções atoi() e atof() estão sendo usadas 
+        para converter essas cadeias de caracteres em seus valores inteiros e flutuantes
+         correspondentes, respectivamente.
 
-Overall, this code snippet is responsible for adding new electric mobility objects to the system.*/
+        No geral, este trecho de código é responsável por adicionar novos objetos 
+        de mobilidade elétrica ao sistema.*/
             char id[100], name[100], license_plate[10], location[100], price[100], stock[100], rent[100], autonomy[100], battery_level[100];
 
             printf("ID: ");

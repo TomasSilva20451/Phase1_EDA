@@ -10,9 +10,9 @@
 struct electric_mobility *mobility_head = NULL;
 
 // create_electric_mobility
-/*This is a function that creates and initializes a new ElectricMobility struct 
-with the given parameters, allocating memory for the struct and its fields as necessary. 
-It returns a pointer to the newly created struct.*/
+/*Esta é uma função que cria e inicializa uma nova estrutura de Mobilidade Elétrica 
+com os parâmetros fornecidos, alocando memória para o struct e seus campos conforme necessário. 
+Ele retorna um ponteiro para a estrutura recém-criada.*/
 ElectricMobility *create_electric_mobility(int id, char *name, char *license_plate, char *location, float price, int stock, float rent, float autonomy, int battery_level)
 {
     ElectricMobility *em = malloc(sizeof(ElectricMobility));
@@ -43,19 +43,19 @@ ElectricMobility *create_electric_mobility(int id, char *name, char *license_pla
 }
 
 // destroy_electric_mobility
-/*This function releases the memory allocated for an ElectricMobility struct.*/
+/*Esta função liberta a memória alocada para um struct ElectricMobility.*/
 void destroy_electric_mobility(ElectricMobility *em)
 {
     free(em);
 }
 
 // add_mobility
-/*The function dynamically allocates memory for the new mobility using malloc and initializes 
-its fields with the arguments passed to the function.
- It then checks if the linked list is empty,
- and if it is, sets the new mobility as the head of the list. 
- If the list is not empty, it traverses the list to find the last mobility and adds
-  the new mobility as its next element.*/
+/*A função aloca memória dinamicamente para a nova mobilidade usando malloc e inicializa 
+seus campos com os argumentos passados para a função.
+ Em seguida, verifica se a lista vinculada está vazia,
+ e, se for, coloca a nova mobilidade como cabeça de lista. 
+ Se a lista não estiver vazia, percorre a lista para encontrar a última mobilidade e adiciona
+  a nova mobilidade como seu próximo elemento.*/
 int add_mobility(int id, char *name, char *license_plate, char *location, float price, int stock, float rent, float autonomy, int battery_level)
 {
     struct electric_mobility *new_mobility = malloc(sizeof(struct electric_mobility));
@@ -100,10 +100,10 @@ int add_mobility(int id, char *name, char *license_plate, char *location, float 
 }
 
 // list_mobility
-/*This function is used to print out the details of each electric mobility item in the linked list. 
-It starts from the head of the list and iterates through each node, printing out the various properties 
-of each electric mobility item. Once it has iterated through the entire list, it returns 1 to 
-indicate success.*/
+/*Esta função é usada para imprimir os detalhes de cada item de mobilidade elétrica na lista vinculada. 
+Começa no topo da lista e itera através de cada nó, imprimindo as várias propriedades 
+de cada item de mobilidade elétrica. Depois de iterar toda a lista, ele retorna 1 para 
+indicam sucesso.*/
 int list_mobility()
 {
     struct electric_mobility *current = mobility_head;
@@ -165,15 +165,15 @@ int remove_electric_mobility(char *license_plate)
 }
 
 // list_electric_mobility_by_location
-/*This function takes a license plate as input and removes 
-the electric mobility with that license plate from the linked list.
- It first checks if the list is empty, and returns 0 if it is. 
- If the license plate matches the one of the head node, 
- it removes the head node and returns 1 to indicate success.
-  Otherwise, it traverses the linked list looking for the electric mobility 
-  with the given license plate, and removes it if found. 
-  If it is not found, it returns 0 to indicate failure. 
-  The function returns 1 to indicate success if the electric mobility is successfully removed.*/
+/*Esta função toma uma placa de carro como entrada e remove 
+a mobilidade elétrica com essa matrícula da lista ligada.
+ Primeiro, verifica se a lista está vazia e devolve 0 se estiver. 
+ Se a matrícula corresponder à do nó principal, 
+ ele remove o nó principal e retorna 1 para indicar sucesso.
+  Caso contrário, percorre a lista ligada à procura da mobilidade elétrica 
+  com a placa fornecida, e remove-a se encontrado. 
+  Se não for encontrado, ele retornará 0 para indicar falha. 
+  A função retorna 1 para indicar o sucesso se a mobilidade elétrica for removida com sucesso.*/
 void list_electric_mobility_by_location(char *location)
 {
     struct electric_mobility *current = mobility_head;
@@ -197,11 +197,11 @@ void list_electric_mobility_by_location(char *location)
 }
 
 // Function to create a new node with given data
-/*The newNode function takes in the parameters for creating a new ElectricMobility node 
-and returns a pointer to the newly created node. The function first allocates memory
- for the new node, initializes the node's fields with the provided values, 
- and sets the node's next pointer to NULL. Finally, the function returns a pointer
- to the newly created node.*/
+/*A função newNode recebe os parâmetros para criar um novo nó ElectricMobility 
+e retorna um ponteiro para o nó recém-criado. A função primeiro aloca memória
+ para o novo nó, inicializa os campos do nó com os valores fornecidos, 
+ e define o próximo ponteiro do nó como NULL. Finalmente, a função retorna um ponteiro
+ para o nó recém-criado.*/
 ElectricMobility *newNode(int id, char *name, char *license_plate, char *location,
                           float price, int stock, float rent, float autonomy, int battery_level)
 {
@@ -220,11 +220,11 @@ ElectricMobility *newNode(int id, char *name, char *license_plate, char *locatio
 }
 
 // Function to insert a new node at the beginning of the linked list
-/*The push function takes a pointer to a pointer of an ElectricMobility struct (head_ref)
- and an ElectricMobility struct (new_node) and inserts new_node at the beginning 
- of the linked list pointed to by head_ref. It does this by first setting the next 
- pointer of new_node to point to the current head of the list (*head_ref), 
- and then setting *head_ref to point to new_node, making new_node the new head of the list.*/
+/*A função push leva um ponteiro para um ponteiro de uma estrutura de ElectricMobility (head_ref)
+ e uma estrutura de Mobilidade Elétrica (new_node) e insere new_node no início 
+ da lista vinculada apontada por head_ref. Ele faz isso definindo primeiro o próximo 
+ ponteiro de new_node para apontar para o atual chefe da lista (*head_ref), 
+ e, em seguida, definir *head_ref para apontar para new_node, tornando new_node o novo chefe da lista.*/
 void push(ElectricMobility **head_ref, ElectricMobility *new_node)
 {
     new_node->next = *head_ref;
@@ -233,9 +233,9 @@ void push(ElectricMobility **head_ref, ElectricMobility *new_node)
 
 // Function to swap two nodes in the linked list
 /*
-head_ref: a pointer to a pointer to the head node of the linked list.
-prev_x: a pointer to the node that comes before the first node to be swapped.
-prev_y: a pointer to the node that comes before the second node to be swapped.
+head_ref: um ponteiro para um ponteiro para o nó principal da lista vinculada.
+prev_x: um ponteiro para o nó que vem antes do primeiro nó a ser trocado.
+prev_y: um ponteiro para o nó que vem antes do segundo nó a ser trocado.
 */
 void swapNodes(ElectricMobility **head_ref, ElectricMobility *prev_x, ElectricMobility *prev_y)
 {
@@ -248,17 +248,17 @@ void swapNodes(ElectricMobility **head_ref, ElectricMobility *prev_x, ElectricMo
 }
 
 // Function to sort the linked list by decreasing autonomy
-/*This is a function called sortByAutonomy that implements a selection sort algorithm 
-to sort a linked list of electric mobility nodes in descending order based on their autonomy attribute.
+/*Esta é uma função chamada sortByAutonomy que implementa um algoritmo de classificação de seleção 
+para classificar uma lista vinculada de nós de mobilidade elétrica em ordem decrescente com base em seu atributo de autonomia.
 
-It first checks if the list is empty or contains only one node, 
-in which case no sorting is necessary and the function simply returns.
+Primeiro, verifica se a lista está vazia ou contém apenas um nó, 
+nesse caso, nenhuma classificação é necessária e a função simplesmente retorna.
 
-It then iterates over the list and for each node,
-it finds the node with the maximum autonomy in the rest of the list. If the node with the maximum autonomy is not the current node, it swaps the positions of the two nodes.
+Em seguida, itera sobre a lista e para cada nó,
+ele encontra o nó com a autonomia máxima no resto da lista. Se o nó com a autonomia máxima não for o nó atual, ele troca as posições dos dois nós.
 
-After sorting the list, it returns the sorted list with the head node now pointing 
-to the node with the maximum autonomy.*/
+Depois de classificar a lista, ele retorna a lista ordenada com o nó principal apontando agora 
+ao nó com a máxima autonomia.*/
 void sortByAutonomy(ElectricMobility **head_ref)
 {
     if (*head_ref == NULL || (*head_ref)->next == NULL)
@@ -290,13 +290,13 @@ void sortByAutonomy(ElectricMobility **head_ref)
 }
 
 // list_electric_mobility_by_autonomy
-/*The function list_electric_mobility_by_autonomy takes a pointer to 
-the head of a linked list of ElectricMobility nodes and sorts the list by 
-the autonomy of the electric mobility, then prints the list in a table format
- with various attributes of each mobility. 
- The sorting is done using the sortByAutonomy function which uses a selection sort algorithm.
-  Once the list is sorted, the function prints the list in the required format using a 
-  loop that iterates over each node in the list and prints its attributes.*/
+/*A função list_electric_mobility_by_autonomy leva um ponteiro para 
+o chefe de uma lista vinculada de nós ElectricMobility e classifica a lista por 
+a autonomia da mobilidade elétrica e, em seguida, imprime a lista em formato de tabela
+ com vários atributos de cada mobilidade. 
+ A classificação é feita usando a função sortByAutonomy que usa um algoritmo de classificação de seleção.
+  Depois que a lista é classificada, a função imprime a lista no formato necessário usando um 
+  loop que itera sobre cada nó na lista e imprime seus atributos.*/
 void list_electric_mobility_by_autonomy(ElectricMobility *head)
 {
     sortByAutonomy(&head);
@@ -321,13 +321,13 @@ void list_electric_mobility_by_autonomy(ElectricMobility *head)
 }
 
 // list_electric_mobility_by_autonomy_and_location
-/*The function list_electric_mobility_by_autonomy_and_location takes
- a char* parameter location, and its purpose is to list all the electric mobility
-  in a given location, sorted by autonomy. It first creates an array to store electric mobility
-   with the given location and then traverses the linked list to add electric mobility with the 
-   given location to the array. Then, it uses a bubble sort algorithm to sort the array by autonomy.
-   Finally, it outputs the electric mobility in the array and frees the memory allocated for the 
-   electric mobility in the array.*/
+/*A função list_electric_mobility_by_autonomy_and_location assume
+ uma localização de parâmetro char*, e seu objetivo é listar toda a mobilidade elétrica
+  num determinado local, ordenado por autonomia. Primeiro, cria uma matriz para armazenar a mobilidade elétrica
+   com a localização dada e, em seguida, percorre a lista vinculada para adicionar mobilidade elétrica com o 
+   dada localização à matriz. Em seguida, ele usa um algoritmo de classificação por bolha para classificar a matriz por autonomia.
+   Finalmente, ele produz a mobilidade elétrica no array e libera a memória alocada para o 
+   mobilidade elétrica na matriz.*/
 void list_electric_mobility_by_autonomy_and_location(char *location)
 {
     // Create an array to store electric mobility with the given location
@@ -408,15 +408,15 @@ void read_electric_mobility_file(const char *filename) {
 
 
 // save_electric_mobility_data_to_file
-/*This function saves the data of the electric mobility stored in the linked 
-list to a binary file specified by the input filename. 
-The function first opens the file for writing in binary mode using the fopen() 
-function. If the file cannot be opened, an error message is printed and the function returns.
- The function then traverses the linked list and writes the data of each electric mobility to
-  the file using the fwrite() function. The size of each element being written is determined
-   by sizeof(struct electric_mobility), and the function writes one element at a time. 
-   Finally, the file is closed using the fclose() function, and a message is printed indicating 
-   that the electric mobility data has been saved to the file.*/
+/*Esta função guarda os dados da mobilidade elétrica armazenados no link 
+para um arquivo binário especificado pelo nome do arquivo de entrada. 
+A função primeiro abre o arquivo para gravação no modo binário usando o fopen() 
+função. Se o arquivo não puder ser aberto, uma mensagem de erro será impressa e a função retornará.
+ Em seguida, a função percorre a lista vinculada e grava os dados de cada mobilidade elétrica em
+  o arquivo usando a função fwrite(). O tamanho de cada elemento que está sendo escrito é determinado
+   por sizeof(struct electric_mobility), e a função escreve um elemento de cada vez. 
+   Finalmente, o arquivo é fechado usando a função fclose() e uma mensagem é impressa indicando 
+   que os dados de mobilidade elétrica foram salvos no arquivo.*/
 void save_electric_mobility_data_to_file(char *filename) {
     FILE *file = fopen(filename, "wb"); // Open file for writing in binary mode
     if (file == NULL) {

@@ -3,15 +3,17 @@
 #include <string.h>
 #include "client.h"
 
+/*cria um pointer NULL para o início de uma linked list de objetos struct client, 
+que pode ser usado para armazenar informações sobre clientes*/
 struct client *clients_head = NULL;
 
 // add_client
-/*function that adds a new client to a singly linked list of clients.
- The function creates a new client node, assigns the client's information
-  to the node's fields, and then adds the node to the end of the linked list.
-   If the linked list is empty, the new node becomes the head of the linked list.
-    The function returns void, and if there is an error allocating memory for the new node,
-    an error message is printed.*/
+/*função que adiciona um novo cliente a uma lista de clientes vinculada individualmente.
+ A função cria um novo nó de cliente, atribui as informações do cliente
+  aos campos do nó e, em seguida, adiciona o nó ao final da linked list.
+   Se a linked list estiver vazia, o novo nó se tornará o chefe da linked list.
+    A função retorna void e, se houver um erro alocando memória para o novo nó,
+    uma mensagem de erro é impressa.*/
 void add_client(char *name, int phone_number, char *email, int nif)
 {
     struct client *new_client = malloc(sizeof(struct client));
@@ -40,9 +42,16 @@ void add_client(char *name, int phone_number, char *email, int nif)
 }
 
 // list_clients
+/*Imprime informações
+ sobre todos os clientes em uma lista vinculada. A função itera através da lista vinculada
+  usando um loop while e imprime o nome, e-mail, número de telefone e NIF do cliente 
+  para cada nó na lista. A função pressupõe que uma variável global clients_head 
+  aponta para o cabeçalho da lista vinculada. A função não modifica a lista vinculada 
+  nem retorna quaisquer valores.*/
 void list_clients(char *name, int phone_number, char *email, int nif)
 {
     struct client *current = clients_head;
+    // while loop
     while (current != NULL)
     {
         printf("Name: %s\n", current->name);
@@ -55,17 +64,6 @@ void list_clients(char *name, int phone_number, char *email, int nif)
 }
 
 // remove_client
-/*function that traverses a singly linked list of clients and prints
- out each client's information. The function takes no arguments and
- assumes that the global variable clients_head points to the head of
- the linked list. The function starts at the head of the linked list
- and iterates through each node using a while loop. For each node,
- the function prints out the client's name, email, phone number,
-  and NIF using the printf function. After printing the information
-   for a client, the function prints a newline character to separate
-    the information from the next client's information.
-    If the linked list is empty (i.e., clients_head is NULL),
-    the function will not print anything.*/
 void remove_client(int nif)
 {
     struct client *current = clients_head;
@@ -92,27 +90,37 @@ void remove_client(int nif)
 }
 
 // update_client_data
-/*function that updates the email and phone number of a
-client with a given NIF in a singly linked list.
-The function takes three arguments: the client's NIF (an integer)
- and the new email and phone number (strings).
- The function starts at the head of the linked list
-  and iterates through each node using a while loop.
-   For each node, the function checks if the node's nif field matches
-   the given NIF. If a match is found, the function updates
-   the node's email field with the new email string using the strcpy
-   function and updates the node's phone_number field with the new phone
-    number string converted to an integer using the atoi function.
-    The function then prints a success message and returns.
-    If no match is found for the given NIF, the function prints an error
-     message and returns.*/
+/*função que atualiza o e-mail e o número de telefone de um
+cliente com um determinado NIF em uma lista vinculada individualmente.
+A função usa três argumentos: o NIF (um inteiro) do cliente
+ e o novo e-mail e número de telefone (strings).
+ A função começa no topo da lista vinculada
+  e itera através de cada nó usando um loop while.
+   Para cada nó, a função verifica se o campo nif do nó corresponde
+   o NIF dado. Se for encontrada uma correspondência, a função é atualizada
+   o campo de e-mail do nó com a nova string de e-mail usando o strcpy
+   e atualiza o campo de phone_number do nó com o novo telefone
+    string numérica convertida em um inteiro usando a função atoi.
+    Em seguida, a função imprime uma mensagem de sucesso e retorna.
+    Se nenhuma correspondência for encontrada para o NIF fornecido, a função imprime um erro
+     mensagem e devoluções.*/
 void update_client_data(int nif, char *new_email, char *new_phone_number)
 {
     struct client *current = clients_head;
     while (current != NULL)
     {
+        // Esta é uma instrução condicional que compara o valor do parâmetro nif 
+        // com o campo nif do objeto struct client apontado pelo ponteiro atual.
         if (current->nif == nif)
         {
+            /*A função strcpy() é usada para copiar o conteúdo da cadeia de caracteres new_email 
+            para o campo de e-mail do objeto struct client apontado pela corrente. 
+            Isso atualiza o endereço de e-mail do cliente.
+
+            A função atoi() é usada para converter a cadeia de caracteres new_phone_number 
+            (contém um valor numérico) em um inteiro, 
+            ue é então atribuído ao campo phone_number do objeto struct client apontado pela corrente. 
+            Isso atualiza o número de telefone do cliente. */
             strcpy(current->email, new_email);
             current->phone_number = atoi(new_phone_number);
             printf("Dados do cliente atualizados com sucesso.\n");
@@ -124,22 +132,27 @@ void update_client_data(int nif, char *new_email, char *new_phone_number)
 }
 
 // load_clients file
-/*function that reads client data from a binary file and creates a
- singly linked list of clients. The function takes a filename as a
-  parameter and returns a pointer to the head of the linked list.
-   The function first attempts to open the file in binary mode using 
-   the fopen function. If the file cannot be opened, the function prints 
-   an error message and returns NULL. The function then reads client data 
-   from the file using the fread function, which reads a fixed number of 
-   bytes from the file into the specified buffer. 
-   The function reads the client's name, email, phone number, 
-   and NIF in that order, and uses the add_client 
-   function to create a new client node with the read data.
-    The function repeats this process until the end of the file is reached. 
-    Finally, the function closes the file using the fclose function and returns 
-    a pointer to the head of the linked list.*/
+/*função que lê dados do cliente de um arquivo binário e cria uma
+ lista de clientes individualmente vinculada. 
+ A função retorna um apontador para o cabeçalho da lista vinculada.
+
+   A função primeiro tenta abrir o arquivo no modo binário usando 
+   a função fopen. Se o ficheiro não puder ser aberto, a função imprime 
+   uma mensagem de erro e retorna NULL. 
+   
+   Em seguida, a função lê os dados do cliente 
+   do arquivo usando a função fread, que lê um número fixo de 
+   bytes do arquivo para o buffer especificado. 
+
+   A função lê o nome do cliente, e-mail, número de telefone, 
+   e NIF, por esta ordem, e utiliza o add_client 
+   para criar um novo nó de cliente com os dados lidos.
+    A função repete esse processo até que o final do arquivo seja alcançado. 
+    Finalmente, a função fecha o arquivo usando a função fclose e retorna 
+    um apontador para o cabeçalho da lista vinculada.*/
 Client *load_clients(char *filename)
 {
+    // Tenta abrir o arquivo no modo binário
     FILE *fp = fopen(filename, "rb");
     if (fp == NULL)
     {
@@ -151,6 +164,9 @@ Client *load_clients(char *filename)
     char email[MAX_EMAIL];
     char phone_number[15];
     char nif[20];
+
+    /* A função lê o nome do cliente, e-mail, número de telefone, 
+   e NIF, por esta ordem, e utiliza o add_client */
 
     while (fread(name, MAX_NAME_LENGTH - 1, 1, fp) == 1)
     {
@@ -170,12 +186,13 @@ Client *load_clients(char *filename)
 }
 
 // save_client_data_to_file
-/*This function saves the client data to a binary file specified by the filename parameter. 
-It opens the file in write mode and writes each client's data in a sequential manner using fwrite().
- It also formats the phone number and NIF as strings before writing them to the file using snprintf(). 
-Finally, it prints a success message and closes the file using fclose().*/
+/*Esta função salva os dados do cliente em um arquivo binário especificado pelo parâmetro filename. 
+Ele abre o arquivo no modo de gravação e grava os dados de cada cliente de forma sequencial usando fwrite().
+ Ele também formata o número de telefone e NIF como strings antes de gravá-los no arquivo usando snprintf(). 
+Finalmente, ele imprime uma mensagem de sucesso e fecha o arquivo usando fclose().*/
 void save_client_data_to_file(char *filename)
 {
+    // salva os dados do cliente em um arquivo binário pelo parâmetro filename
     FILE *fp = fopen(filename, "wb");
     if (fp == NULL)
     {
@@ -186,6 +203,7 @@ void save_client_data_to_file(char *filename)
     struct client *current = clients_head;
     while (current != NULL)
     {
+        // grava os dados de cada cliente de forma sequencial usando fwrite()
         fwrite(current->name, MAX_NAME_LENGTH - 1, 1, fp);
         fwrite(current->email, MAX_EMAIL - 1, 1, fp);
         char phone_number[MAX_PHONE_NUMBER_LENGTH];
@@ -196,6 +214,7 @@ void save_client_data_to_file(char *filename)
         fwrite(nif, MAX_NIF_LENGTH - 1, 1, fp);
         current = current->next;
     }
+    
     printf("Client  data saved to file %s.\n", filename);
     fclose(fp);
 }

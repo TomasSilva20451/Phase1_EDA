@@ -14,18 +14,19 @@
 #include "client.h"
 
 /*
-id: an integer representing the unique identifier for the electric mobility object.
-name: a pointer to a character array representing the name of the electric mobility object.
-license_plate: a pointer to a character array representing the license plate number of the electric mobility object.
-location: a pointer to a character array representing the current location of the electric mobility object.
-price: a float representing the cost of renting the electric mobility object.
-stock: an integer representing the number of electric mobility objects available for rent.
-rent: a float representing the cost of renting the electric mobility object per hour.
-autonomy: a float representing the distance the electric mobility object can travel on a single charge.
-battery_level: an integer representing the current battery level of the electric mobility object.
-next: a pointer to the next electric mobility object in a linked list of electric mobility objects.
+id: um número inteiro que representa o identificador único do objeto de mobilidade elétrica.
+name: um ponteiro para uma matriz de caracteres que representa o nome do objeto de mobilidade elétrica.
+license_plate: um ponteiro para uma matriz de caracteres que representa o número da placa do objeto de mobilidade elétrica.
+localização: um ponteiro para uma matriz de caracteres que representa a localização atual do objeto de mobilidade elétrica.
+preço: um flutuador que representa o custo do aluguer do objeto de mobilidade elétrica.
+stock: um número inteiro que representa o número de objetos de mobilidade elétrica disponíveis para alugar.
 
-This typedef declaration renames the electric_mobility struct as ElectricMobility for convenience.*/
+aluguer: um flutuador que representa o custo do aluguel do objeto de mobilidade elétrica por hora.
+autonomia: um flutuador que representa a distância que o objeto de mobilidade elétrica pode percorrer com uma única carga.
+battery_level: um número inteiro que representa o nível atual da bateria do objeto de mobilidade elétrica.
+em seguida: um ponteiro para o próximo objeto de mobilidade elétrica em uma lista vinculada de objetos de mobilidade elétrica.
+
+Esta declaração typedef renomeia o electric_mobility struct como ElectricMobility para conveniência.*/
 typedef struct electric_mobility
 {
     int id;
@@ -42,15 +43,14 @@ typedef struct electric_mobility
 
 extern struct electric_mobility *mobility_head;
 
-/*These are functions related to managing electric mobility in a rental service:
+/*Estas são funções relacionadas com a gestão da mobilidade elétrica num serviço de aluguer:
 
-int add_mobility(int id, char *name, char *license_plate, char *location, float price, int stock, float rent, float autonomy, int battery_level): Adds a new electric mobility to the rental service. It takes in various parameters like id, name, license_plate, location, price, stock, rent, autonomy, and battery_level. It returns an integer value indicating whether the addition was successful or not.
+int add_mobility(int id, char *name, char *license_plate, char *location, float price, int stock, float rent, float autonomy, int battery_level): Adiciona uma nova mobilidade elétrica ao serviço de aluguer. Ele leva em vários parâmetros como id, nome, license_plate, localização, preço, estoque, aluguel, autonomia e battery_level. Ele retorna um valor inteiro indicando se a adição foi bem-sucedida ou não.
 
-void save_electric_mobility_data_to_file(char *filename): Saves the electric mobility data to a file. It takes in the filename as a parameter, opens the file for writing in binary mode, and writes the electric mobility data to the file. It also prints a message indicating whether the operation was successful or not.
+void save_electric_mobility_data_to_file(char *filename): salva os dados de mobilidade elétrica em um arquivo. Ele recebe o nome do arquivo como parâmetro, abre o arquivo para gravação no modo binário e grava os dados de mobilidade elétrica no arquivo. Ele também imprime uma mensagem indicando se a operação foi bem-sucedida ou não.
+void destroy_electric_mobility(ElectricMobility *em): liberta a memória alocada para um objeto de mobilidade elétrica. Ele recebe um ponteiro para o objeto de mobilidade elétrica e libera a memória associada a ele.
 
-void destroy_electric_mobility(ElectricMobility *em): Frees the memory allocated for an electric mobility object. It takes in a pointer to the electric mobility object and frees the memory associated with it.
-
-void read_electric_mobility_file(const char *filename): Reads the electric mobility data from a file. It takes in the filename as a parameter, opens the file for reading in binary mode, reads the electric mobility data from the file, and creates a linked list of electric mobility objects.*/
+void read_electric_mobility_file(const char *filename): lê os dados de mobilidade elétrica de um arquivo. Ele recebe o nome do arquivo como parâmetro, abre o arquivo para leitura no modo binário, lê os dados de mobilidade elétrica do arquivo e cria uma lista vinculada de objetos de mobilidade elétrica.*/
 int add_mobility(int id, char *name, char *license_plate, char *location, float price, int stock, float rent, float autonomy, int battery_level);
 void save_electric_mobility_data_to_file(char *filename);
 void destroy_electric_mobility(ElectricMobility *em);

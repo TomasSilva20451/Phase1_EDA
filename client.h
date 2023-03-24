@@ -15,38 +15,38 @@ typedef struct client
     struct client *next;
 } Client;
 
-/*This is an external declaration of a variable named clients_head of type struct client *.
- This variable is declared as extern to indicate that it is defined in another source file, 
- and it allows other source files to access and use it.*/
+/*Esta é uma declaração externa de uma variável chamada clients_head do tipo struct client *.
+ Esta variável é declarada como externa para indicar que está definida em outro arquivo de origem, 
+ e permite que outros arquivos de origem acessem e usem. */
 extern struct client *clients_head;
 
 // add_client
-/*A function prototype is a declaration of a function that provides the function's name,
- return type, and parameter types to the compiler, but does not contain the function's actual implementation. 
- It is used to inform the compiler about the existence of a function so that it can be called from other parts of the program.*/
+/*Um protótipo de função é uma declaração de uma função que fornece o nome da função,
+ tipo de retorno e tipos de parâmetro para o compilador, mas não contém a implementação real da função. 
+ Ele é usado para informar o compilador sobre a existência de uma função para que ela possa ser chamada de outras partes do programa.*/
 void add_client(char *name, int phone_number, char *email, int nif);
 
 // save_client_data_to_file
-/*The function save_client_data_to_file is used to save the data of all the clients to a file 
-with the specified name. 
-The function takes a pointer to a character string filename as input and returns nothing.
- The function opens the file in binary write mode and writes the data of each client to the 
- file one by one using fwrite() function. 
- After writing all the data to the file, it closes the file and prints a message indicating 
- that the client data has been saved to the file.*/
+/*A função save_client_data_to_file é usada para salvar os dados de todos os clientes em um arquivo 
+com o nome especificado. 
+A função usa um ponteiro para um nome de arquivo de cadeia de caracteres como entrada e não retorna nada.
+ A função abre o arquivo no modo de gravação binária e grava os dados de cada cliente para o 
+ arquivo um por um usando a função fwrite(). 
+ Depois de gravar todos os dados no arquivo, ele fecha o arquivo e imprime uma mensagem indicando 
+ que os dados do cliente foram salvos no arquivo.*/
 void save_client_data_to_file(char *filename) ;
 
 
 Client *new_client(char *name, char *address, int phone_number, int nif);
 
-/*This function adds a new account to a given client. 
-It takes a pointer to the client to which the account should be added, 
-as well as the account number and initial balance.*/
+/*Esta função adiciona uma nova conta a um determinado cliente. 
+É preciso um ponteiro para o cliente ao qual a conta deve ser adicionada, 
+bem como o número da conta e o saldo inicial.*/
 void add_account(Client *client, int account_number, double balance);
 
-/* This function saves an array of clients to a file. 
-It takes the filename to which the clients should be saved, 
-a pointer to an array of client pointers, and the number of clients in the array.*/
+/* Esta função salva uma matriz de clientes em um arquivo. 
+Ele leva o nome do arquivo para o qual os clientes devem ser salvos, 
+um ponteiro para uma matriz de ponteiros de cliente e o número de clientes na matriz.*/
 void save_clients(char *filename, Client **clients, int num_clients);
 
 Client *load_clients(char *filename);
